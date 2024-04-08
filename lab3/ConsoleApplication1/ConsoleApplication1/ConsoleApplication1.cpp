@@ -96,6 +96,7 @@ int main()
     file2 << "plik drugi";
     file2.close();
 
+    removeEmptyDirectories("C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder3");//
 
     copyToDirectory("C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder1","C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder3");
     copyToDirectory("C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder2","C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder3");
@@ -106,7 +107,7 @@ int main()
     extensions.push_back(".txt");
     extensions.push_back(".png");
     extenstionList("C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Folder3/Subfolder2", extensions);
-    removeEmptyDirectories("C:/Users/grawe/OneDrive - Politechnika Śląska/Pulpit/Desktop/Folder3");
+   
 
     return 0;
 }
