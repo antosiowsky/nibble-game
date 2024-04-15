@@ -5,6 +5,19 @@
 
 
 int main(void) {
+
+    int skill_level;
+    char increase_speed, mono_colo;
+
+    std::cout << "Skill level (1 to 100)? \n 1 = Novice \n 90 = Expert \n 100 = Twidlle fingers \n";
+    std::cin >> skill_level;
+
+    std::cout << "Increase game speed during play (Y or N)? ";
+    std::cin >> increase_speed;
+
+    std::cout << "Monochrome or color monitor (M or C)? ";
+    std::cin >> mono_colo;
+
     // Ustaw odstęp od krawędzi okna
     const float padding = 15.f;
     const float topPadding = 40.f;
@@ -14,7 +27,7 @@ int main(void) {
     sf::RenderWindow window(sf::VideoMode(1600, 1000), "Okno SFML z niebieskim tłem");
 
     // Utworzenie węża (przyjmując szerokość segmentu węża jako 20 pikseli)
-    Snake snake(10, 20);
+    Snake snake(10, 20, 10);
 
     // Główna pętla programu
     sf::Clock clock;

@@ -1,6 +1,6 @@
 #include "snake.h"
 
-Snake::Snake(int initialLength, float segmentSize) : segmentSize(segmentSize) {
+Snake::Snake(int initialLength, float segmentSize, float speed) : segmentSize(segmentSize) {
     // Ustaw kolor wê¿a
     segment.setFillColor(sf::Color::Green);
 

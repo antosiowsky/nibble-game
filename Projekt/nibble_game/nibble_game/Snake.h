@@ -7,7 +7,7 @@
 
 class Snake {
 public:
-    Snake(int initialLength, float segmentSize);
+    Snake(int initialLength, float segmentSize, float speed);
 
     void move(float x, float y);
     void update(sf::Time dt);
@@ -19,7 +19,7 @@ private:
     sf::RectangleShape segment;
     sf::Vector2f direction;
     float segmentSize;
-
+    
     // Zmienne zegara
     float timer = 0.0f;
     const float interval = 0.5f; // Interwa³ czasowy miêdzy ruchami wê¿a (w sekundach)
