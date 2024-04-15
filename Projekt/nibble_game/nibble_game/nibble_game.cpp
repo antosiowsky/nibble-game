@@ -3,10 +3,15 @@
 
 class Snake {
 public:
-    Snake(int initialLength, float segmentSize) {
+    Snake(int initialLength, float segmentSize) : segmentSize(segmentSize) {
+        // Ustaw kolor węża
+        segment.setFillColor(sf::Color::Green);
+
+        // Ustaw rozmiar segmentu węża
+        segment.setSize(sf::Vector2f(segmentSize, segmentSize));
+
+        // Ustaw pozycję dla każdego segmentu węża
         for (int i = 0; i < initialLength; ++i) {
-            sf::RectangleShape segment(sf::Vector2f(segmentSize, segmentSize));
-            segment.setFillColor(sf::Color::Green);
             segment.setPosition(200, 200 + i * segmentSize);
             segments.push_back(segment);
         }
@@ -19,9 +24,18 @@ public:
         segments[0].move(x, y);
     }
 
-    void update(float dt) {
-        // Przesuń węża w aktualnym kierunku
-        move(direction.x * dt, direction.y * dt);
+    void update(sf::Time dt) {
+        // Aktualizuj zegar ruchu węża
+        timer += dt.asSeconds();
+
+        // Sprawdź, czy upłynął wystarczający czas od ostatniego ruchu węża
+        if (timer >= interval) {
+            // Przesuń węża
+            move(direction.x * segmentSize, direction.y * segmentSize);
+
+            // Zresetuj zegar
+            timer = 0;
+        }
     }
 
     void setDirection(sf::Vector2f newDirection) {
@@ -39,41 +53,29 @@ public:
 
 private:
     std::vector<sf::RectangleShape> segments;
+    sf::RectangleShape segment;
     sf::Vector2f direction;
+    float segmentSize;
+
+    // Zmienne zegara
+    float timer = 0.0f;
+    const float interval = 0.5f; // Interwał czasowy między ruchami węża (w sekundach)
 };
 
 int main(void) {
-
-    float skill_level;
-    char increase_speed, mono_colo;
-
-    std::cout << "Skill level (1 to 100)? \n 1 = Novice \n 90 = Expert \n 100 = Twidlle fingers \n";
-    std::cin >> skill_level;
-
-    std::cout << "Increase game speed during play (Y or N)? ";
-    std::cin >> increase_speed;
-
-    std::cout << "Monochrome or color monitor (M or C)? ";
-    std::cin >> mono_colo;
-
-
     // Ustaw odstęp od krawędzi okna
     const float padding = 15.f;
     const float topPadding = 40.f;
     const float thickness = 10.f;
-    int initialWidth = 1600;
-    int initialHeight = 1000;
 
     // Utwórz okno o rozmiarze 1600x1000 pikseli
     sf::RenderWindow window(sf::VideoMode(1600, 1000), "Okno SFML z niebieskim tłem");
 
-    Snake snake(10, 20); // Utworzenie węża
-
-    // Zegar dla prędkości węża
-    sf::Clock clock;
-    float snakeSpeed = skill_level; // Prędkość węża (piksele na sekundę)
+    // Utworzenie węża (przyjmując szerokość segmentu węża jako 20 pikseli)
+    Snake snake(10, 20);
 
     // Główna pętla programu
+    sf::Clock clock;
     while (window.isOpen()) {
         // Sprawdź wszystkie zdarzenia, które wystąpiły od ostatniego cyklu pętli
         sf::Event event;
@@ -87,16 +89,16 @@ int main(void) {
             if (event.type == sf::Event::KeyPressed) {
                 switch (event.key.code) {
                 case sf::Keyboard::Up:
-                    snake.setDirection(sf::Vector2f(0, -20)); // Ustaw kierunek węża w górę
+                    snake.setDirection(sf::Vector2f(0, -1)); // Ustaw kierunek węża w górę
                     break;
                 case sf::Keyboard::Down:
-                    snake.setDirection(sf::Vector2f(0, 20)); // Ustaw kierunek węża w dół
+                    snake.setDirection(sf::Vector2f(0, 1)); // Ustaw kierunek węża w dół
                     break;
                 case sf::Keyboard::Left:
-                    snake.setDirection(sf::Vector2f(-20, 0)); // Ustaw kierunek węża w lewo
+                    snake.setDirection(sf::Vector2f(-1, 0)); // Ustaw kierunek węża w lewo
                     break;
                 case sf::Keyboard::Right:
-                    snake.setDirection(sf::Vector2f(20, 0)); // Ustaw kierunek węża w prawo
+                    snake.setDirection(sf::Vector2f(1, 0)); // Ustaw kierunek węża w prawo
                     break;
                 default:
                     break;
@@ -104,12 +106,8 @@ int main(void) {
             }
         }
 
-        // Aktualizuj zegar
-        float dt = clock.restart().asSeconds();
-
         // Wyczyść ekran ustawiając tło na kolor niebieski
-        sf::Color bG(0, 0, 128);
-        window.clear(bG);
+        window.clear(sf::Color(0, 0, 128));
 
         // Rysuj ramki dookoła okna
         sf::RectangleShape topBorder(sf::Vector2f(window.getSize().x - 2 * padding, thickness));
@@ -133,8 +131,11 @@ int main(void) {
         window.draw(leftBorder);
         window.draw(rightBorder);
 
-        // Aktualizuj ruch węża
-        snake.update(snakeSpeed * dt);
+        // Pobierz czas trwania klatki
+        sf::Time dt = clock.restart();
+
+        // Aktualizuj ruch węża z uwzględnieniem czasu trwania klatki
+        snake.update(dt);
 
         // Wyświetl zawartość okna
         snake.draw(window);
