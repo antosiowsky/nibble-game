@@ -1,28 +1,26 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
+#include "object.h"
+#include <deque>
 
-class Snake {
+class Snake : public Object {
 public:
-    Snake(int initialLength, float segmentSize, float speed);
+    Snake(float x, float y, float thickness, float speed);
+    ~Snake();
 
-    void move(float x, float y);
-    void update(sf::Time dt);
-    void setDirection(sf::Vector2f newDirection);
-    void draw(sf::RenderWindow& window);
+    void move();
+    void grow();
+    bool checkCollision() const;
+    void handleInput(sf::Keyboard::Key key);
+
+    void draw(sf::RenderWindow& window) const override;
 
 private:
-    std::vector<sf::RectangleShape> segments;
-    sf::RectangleShape segment;
-    sf::Vector2f direction;
-    float segmentSize;
-    
-    // Zmienne zegara
-    float timer = 0.0f;
-    const float interval = 0.5f; // Interwa³ czasowy miêdzy ruchami wê¿a (w sekundach)
+    std::deque<sf::RectangleShape> segments;
+    float speed;
+    sf::Vector2f velocity;
+    sf::Keyboard::Key currentDirection;
 };
 
 #endif // SNAKE_H

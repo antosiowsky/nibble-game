@@ -1,4 +1,65 @@
 ﻿#include <SFML/Graphics.hpp>
+#include "snake.h"
+#include "frame.h"
+#include <iostream>
+
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode(1600, 1000), "Snake Game");
+
+    // Create frame
+    Frame frame(50, 50, 70, 10);
+
+    // Create snake
+    Snake snake(100, 100, 20, 5); // Example parameters
+
+    sf::Clock clock;
+    float deltaTime = 0.0f;
+    float moveTimer = 0.0f;
+    float moveInterval = 0.1f; // Adjust the snake's movement speed here
+
+    while (window.isOpen()) {
+        deltaTime = clock.restart().asSeconds();
+        moveTimer += deltaTime;
+
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        // Handle input
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            snake.handleInput(sf::Keyboard::Up);
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            snake.handleInput(sf::Keyboard::Down);
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            snake.handleInput(sf::Keyboard::Left);
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            snake.handleInput(sf::Keyboard::Right);
+
+        // Update snake's movement
+        if (moveTimer >= moveInterval) {
+            snake.move();
+            moveTimer = 0.0f;
+        }
+
+        window.clear(sf::Color::Black);
+
+        // Draw objects
+        frame.draw(window);
+        snake.draw(window);
+
+        window.display();
+    }
+
+    return 0;
+}
+
+
+
+/*
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 #include "Snake.h"
@@ -99,3 +160,4 @@ int main(void) {
 
     return 0;
 }
+*/

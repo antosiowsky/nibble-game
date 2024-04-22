@@ -1,48 +1,37 @@
 #include "snake.h"
 
-Snake::Snake(int initialLength, float segmentSize, float speed) : segmentSize(segmentSize) {
-    // Ustaw kolor wê¿a
+Snake::Snake(float x, float y, float thickness, float speed)
+    : Object(x, y, thickness), speed(speed), currentDirection(sf::Keyboard::Right) {
+    sf::RectangleShape segment(sf::Vector2f(thickness, thickness));
     segment.setFillColor(sf::Color::Green);
-
-    // Ustaw rozmiar segmentu wê¿a
-    segment.setSize(sf::Vector2f(segmentSize, segmentSize));
-
-    // Ustaw pozycjê dla ka¿dego segmentu wê¿a
-    for (int i = 0; i < initialLength; ++i) {
-        segment.setPosition(200, 200 + i * segmentSize);
-        segments.push_back(segment);
-    }
+    segment.setPosition(x, y);
+    segments.push_front(segment);
 }
 
-void Snake::move(float x, float y) {
-    for (int i = segments.size() - 1; i > 0; --i) {
-        segments[i].setPosition(segments[i - 1].getPosition());
-    }
-    segments[0].move(x, y);
+Snake::~Snake() {}
+
+void Snake::move() {
+    sf::Vector2f newPos = segments.front().getPosition() + velocity;
+    segments.front().setPosition(newPos);
 }
 
-void Snake::update(sf::Time dt) {
-    // Aktualizuj zegar ruchu wê¿a
-    timer += dt.asSeconds();
-
-    // SprawdŸ, czy up³yn¹³ wystarczaj¹cy czas od ostatniego ruchu wê¿a
-    if (timer >= interval) {
-        // Przesuñ wê¿a
-        move(direction.x * segmentSize, direction.y * segmentSize);
-
-        // Zresetuj zegar
-        timer = 0;
-    }
+void Snake::grow() {
+    sf::RectangleShape segment(sf::Vector2f(thickness, thickness));
+    segment.setFillColor(sf::Color::Green);
+    segment.setPosition(segments.back().getPosition());
+    segments.push_back(segment);
 }
 
-void Snake::setDirection(sf::Vector2f newDirection) {
-    // Ustawienie kierunku, ale nie pozwól na cofanie siê wê¿a
-    if (direction.x + newDirection.x != 0 || direction.y + newDirection.y != 0) {
-        direction = newDirection;
-    }
+bool Snake::checkCollision() const {
+    // Implement collision detection logic
+    return false;
 }
 
-void Snake::draw(sf::RenderWindow& window) {
+void Snake::handleInput(sf::Keyboard::Key key) {
+    // Implement input handling logic
+}
+
+void Snake::draw(sf::RenderWindow& window) const {
     for (const auto& segment : segments) {
         window.draw(segment);
     }
