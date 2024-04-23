@@ -27,7 +27,20 @@ auto getEvenNumbers(const std::ranges::range auto& numbers) {
 int maxDifference(const std::vector<int>& numbers) {
         auto minmax = std::ranges::minmax_element(numbers);
         return *std::ranges::max_element(numbers) - *std::ranges::min_element(numbers);
+}
+
+auto na_duze(const std::vector<std::string>& slowa)
+{
+    std::vector <std::string> wynik;
+    for (auto& s : slowa)
+    {
+        std::string sl;
+        for (char c : s | std::views::transform([](char c) { return std::toupper(c); }))
+            sl += c;
+        wynik.push_back(sl);
     }
+    return wynik;
+}
 
 int main()
 {
@@ -38,7 +51,7 @@ int main()
             std::cout << num << " ";
         }
 
-
+        std::cout << std::endl;
         std::cout << std::endl;
         std::cout << "+++++ ZADANIE 2 +++++" << std::endl;
 
@@ -47,9 +60,9 @@ int main()
         {"Piotr", "Nowak", 28},
         {"Anna", "Kowalska", 31},
         {"Maria", "Nowak", 67},
-        {"Katarzyna", "Wiśniewska", 22},
+        {"Katarzyna", "Winiewska", 22},
         {"Marek", "Kowalczyk", 45},
-        {"Tomasz", "Wiśniewski", 39}
+        {"Tomasz", "Winiewski", 39}
         };  
         sortPeople(people);
             
@@ -63,5 +76,17 @@ int main()
 
         std::vector<int> numbers = { 10, 20, 30, 40, 50, 60, 70, 80, 90, -10, -20, -30, -40, -50 };
         std::cout << "Max difference: " << maxDifference(numbers) << std::endl;
+
+
+        std::cout << std::endl;
+        std::cout << "+++++ ZADANIE 4 +++++" << std::endl;
+
+        std::vector<std::string> zdanie{ "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog" };
+        std::vector<std::string> zdanie_duze = na_duze(zdanie);
+        for (auto s : zdanie_duze)
+        {
+            std::cout << s << ' ';
+        }
+        std::cout << std::endl;
         return 0;
 }
