@@ -1,8 +1,8 @@
 #include "object.h"
 
-Object::Object(float x, float y, float thickness) : position(x, y), thickness(thickness) {}
+Object::Object(float x, float y, float thickness) : 
+    x(x), y(y), thickness(thickness) {}
 
-Object::~Object() {}
 
 void Object::setPosition(float x, float y) {
     position.x = x;

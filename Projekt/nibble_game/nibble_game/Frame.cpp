@@ -1,9 +1,9 @@
 #include "frame.h"
 
-Frame::Frame(float x, float y, float length, float thickness)
-    : Object(x, y, thickness), length(length) , thickness(thickness) {}
+Frame::Frame(float x, float y, float thickness, float length)
+    : Object(x, y, thickness) , length(length) {}
 
-Frame::~Frame() {}
+//Frame::~Frame() {}
 
 void Frame::draw(sf::RenderWindow& window) const {
     sf::RectangleShape top(sf::Vector2f(length, thickness));

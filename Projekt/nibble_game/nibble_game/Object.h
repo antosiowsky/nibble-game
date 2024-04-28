@@ -2,11 +2,12 @@
 #define OBJECT_H
 
 #include <SFML/Graphics.hpp>
+#include "Game.h"
 
-class Object {
+class Object : public Game {
 public:
     Object(float x, float y, float thickness);
-    virtual ~Object();
+    //virtual ~Object();
 
     void setPosition(float x, float y);
     void setThickness(float thickness);
@@ -17,7 +18,7 @@ public:
 
 protected:
     sf::Vector2f position;
-    float thickness;
+    float thickness, x,y;
 };
 
 #endif // OBJECT_H
