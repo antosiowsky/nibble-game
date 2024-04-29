@@ -16,7 +16,7 @@ int main() {
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
-    float moveInterval = 0.1f; // Adjust the snake's movement speedhere
+    float moveInterval = 0.5f; // Adjust the snake's movement speedhere
     snake.grow();
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -37,7 +37,7 @@ int main() {
             dir = 'l';
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&dir!='l')
             dir = 'r';
-          
+          // dodać kolejkę ruchów 
         // Update snake's movement
         
         if (moveTimer >= moveInterval) {
