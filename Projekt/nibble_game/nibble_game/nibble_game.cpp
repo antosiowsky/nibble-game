@@ -18,7 +18,7 @@ int main() {
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
-    float moveInterval = 0.5f; // Adjust the snake's movement speedhere
+    float moveInterval = 0.2f; // Adjust the snake's movement speedhere
     snake.grow();
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -31,27 +31,27 @@ int main() {
         }
 
      
-         if (directionQueue.size() <= 1)
+         if (directionQueue.size() <= 2)
             {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upKeyPressed && (directionQueue.empty() || directionQueue.back() != 1))
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upKeyPressed && dir!='d' && (directionQueue.empty() || directionQueue.back() != '1'))
                 {
                     std::cout << "pushed up" << std::endl;
                     directionQueue.push('u');
                     upKeyPressed = true;
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !rightKeyPressed && (directionQueue.empty() || directionQueue.back() != 2))
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !rightKeyPressed && dir!='l' && (directionQueue.empty() || directionQueue.back() != 2))
                 {
                     std::cout << "pushed right" << std::endl;
                     directionQueue.push('r');
                     rightKeyPressed = true;
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downKeyPressed && (directionQueue.empty() || directionQueue.back() != 3))
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downKeyPressed && dir!='u' && (directionQueue.empty() || directionQueue.back() != 3))
                 {
                     std::cout << "pushed down" << std::endl;
                     directionQueue.push('d');
                     downKeyPressed = true;
                 }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed && (directionQueue.empty() || directionQueue.back() != 4))
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed && dir!='r' && (directionQueue.empty() || directionQueue.back() != 4))
                 {
                     std::cout << "pushed left" << std::endl;
                     directionQueue.push('l');
@@ -59,15 +59,7 @@ int main() {
                 }
             }
         
-       /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && dir != 'd')
-            directionQueue.push('u');
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && dir != 'u')
-            directionQueue.push('d');
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && dir != 'r')
-            directionQueue.push('l');
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && dir != 'l')
-            directionQueue.push('r');*/
-         
+        
         //Aktualizacja ruchu węża
        if (moveTimer >= moveInterval) {
             if (!directionQueue.empty()) {
@@ -99,13 +91,7 @@ int main() {
             }
             moveTimer = 0.0f;
        }
-      /*  
-       if (!directionQueue.empty() && (directionQueue.front() - direction) % 2 == 0 && direction != 0)
-               {
-                   directionQueue.pop();
-               }*/
-
-       // moveTimer += clock.restart().asSeconds();
+      
         window.clear(sf::Color::Black);
 
         // Draw objects
