@@ -2,17 +2,19 @@
 #include "snake.h"
 #include "frame.h"
 #include <iostream>
+#include <queue>
 
+char dir = 'r';
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1600, 1000), "Snake Game");
-
+    std::queue<char> directionQueue;
     // Create frame
     Frame frame(0, 0, 40, 100);
-
+    bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
     // Create snake
     Snake snake(100, 100, 30, 10); // Example parameters
-    char dir = 'r';
+    
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
@@ -28,23 +30,82 @@ int main() {
                 window.close();
         }
 
+     
+         if (directionQueue.size() <= 1)
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upKeyPressed && (directionQueue.empty() || directionQueue.back() != 1))
+                {
+                    std::cout << "pushed up" << std::endl;
+                    directionQueue.push('u');
+                    upKeyPressed = true;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !rightKeyPressed && (directionQueue.empty() || directionQueue.back() != 2))
+                {
+                    std::cout << "pushed right" << std::endl;
+                    directionQueue.push('r');
+                    rightKeyPressed = true;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !downKeyPressed && (directionQueue.empty() || directionQueue.back() != 3))
+                {
+                    std::cout << "pushed down" << std::endl;
+                    directionQueue.push('d');
+                    downKeyPressed = true;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed && (directionQueue.empty() || directionQueue.back() != 4))
+                {
+                    std::cout << "pushed left" << std::endl;
+                    directionQueue.push('l');
+                    leftKeyPressed = true;
+                }
+            }
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)&&dir!='d')
-            dir='u';
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)&&dir!='u')
-            dir = 'd';
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)&&dir!='r')
-            dir = 'l';
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&&dir!='l')
-            dir = 'r';
-          // dodać kolejkę ruchów 
-        // Update snake's movement
-        
-        if (moveTimer >= moveInterval) {
-            snake.move(dir);
-            moveTimer = 0.0f;
-        }
+       /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && dir != 'd')
+            directionQueue.push('u');
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && dir != 'u')
+            directionQueue.push('d');
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && dir != 'r')
+            directionQueue.push('l');
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && dir != 'l')
+            directionQueue.push('r');*/
+         
+        //Aktualizacja ruchu węża
+       if (moveTimer >= moveInterval) {
+            if (!directionQueue.empty()) {
+                snake.move(directionQueue.front());
+                dir = directionQueue.front();
+                directionQueue.pop();
+                switch (dir)
+                {
+                    case 'u':
+						upKeyPressed = false;
+						break;
+					case 'd':
+						downKeyPressed = false;
+						break;
+					case 'l':
+						leftKeyPressed = false;
+                        break;
+					case 'r':
+						rightKeyPressed = false;
+						break;
 
+
+                default:
+                    break;
+                }
+            }
+            else {
+            snake.move(dir);
+            }
+            moveTimer = 0.0f;
+       }
+      /*  
+       if (!directionQueue.empty() && (directionQueue.front() - direction) % 2 == 0 && direction != 0)
+               {
+                   directionQueue.pop();
+               }*/
+
+       // moveTimer += clock.restart().asSeconds();
         window.clear(sf::Color::Black);
 
         // Draw objects
