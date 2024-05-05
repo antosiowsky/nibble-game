@@ -7,11 +7,13 @@
 char dir = 'r';
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1600, 1000), "Snake Game");
+    sf::RenderWindow window(sf::VideoMode(1600, 900), "Snake Game");
     std::queue<char> directionQueue;
     // Create frame
-    Frame frame(0, 0, 40, 100);
+    Frame frame(40, 40, 30, 600);
     bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
+    
+    
     // Create snake
     Snake snake(100, 100, 30, 10); // Example parameters
     
@@ -19,7 +21,11 @@ int main() {
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
     float moveInterval = 0.2f; // Adjust the snake's movement speedhere
-    snake.grow();
+    
+
+
+
+
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
         moveTimer += deltaTime;
@@ -92,11 +98,16 @@ int main() {
             moveTimer = 0.0f;
        }
       
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color::Blue);
 
         // Draw objects
         frame.draw(window);
         snake.draw(window);
+
+       /* sf::RectangleShape top(sf::Vector2f(1000, 30));
+        top.setPosition(10, 10);
+        top.setFillColor(sf::Color::Red);
+        window.draw(top);*/
 
         window.display();
     }
