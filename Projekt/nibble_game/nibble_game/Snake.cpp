@@ -42,8 +42,6 @@ void Snake::move(char direction) {
         break;
     }
     
-    
-
     // Przechowujemy pozycjê poprzedniego segmentu przed poruszeniem wê¿a
     sf::Vector2f tempPos = prevPos;
 
@@ -58,23 +56,7 @@ void Snake::move(char direction) {
         // Aktualizujemy pozycjê poprzedniego segmentu na poprzedni¹ pozycjê aktualnego segmentu
         prevPos = currentPos;
     }
-
-
-    /*
-    // Sprawdzamy, czy w¹¿ zjad³ jedzenie
-    if (ateFood) {
-        // Tworzymy nowy segment wê¿a na poprzedniej pozycji ostatniego segmentu
-        sf::RectangleShape newSegment(sf::Vector2f(thickness, thickness));
-        newSegment.setFillColor(sf::Color::Green);
-        newSegment.setPosition(tempPos); // Ustawiamy pozycjê nowego segmentu na poprzedni¹ pozycjê ostatniego segmentu
-        segments.push_back(newSegment); // Dodajemy nowy segment do listy segmentów wê¿a
-        ateFood = false; // Resetujemy flagê ateFood
-    }*/
 }
-
-
-
-
 
 void Snake::grow() {
     sf::RectangleShape segment(sf::Vector2f(thickness, thickness));
@@ -87,7 +69,6 @@ bool Snake::checkCollision() const {
     // Implement collision detection logic
     return false;
 }
-
 
 
 void Snake::draw(sf::RenderWindow& window) const {

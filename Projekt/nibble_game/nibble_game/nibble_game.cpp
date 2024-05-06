@@ -8,24 +8,21 @@ char dir = 'r';
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Snake Game");
-    std::queue<char> directionQueue;
+    
     // Create frame
     Frame frame(40, 40, 30, 600);
-    bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
+    
     
     
     // Create snake
     Snake snake(100, 100, 30, 10); // Example parameters
-    
+    std::queue<char> directionQueue;
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
     float moveInterval = 0.2f; // Adjust the snake's movement speedhere
-    
+    bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
 
-
-    snake.grow();
-snake.grow();
 
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -73,25 +70,6 @@ snake.grow();
                 snake.move(directionQueue.front());
                 dir = directionQueue.front();
                 directionQueue.pop();
-                /*switch (dir)
-                {
-                    case 'u':
-						upKeyPressed = false;
-						break;
-					case 'd':
-						downKeyPressed = false;
-						break;
-					case 'l':
-						leftKeyPressed = false;
-                        break;
-					case 'r':
-						rightKeyPressed = false;
-						break;
-
-
-                default:
-                    break;
-                }*/
             }
             else {
             snake.move(dir);
@@ -110,10 +88,6 @@ snake.grow();
 
 			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				rightKeyPressed = false;
-
-
-
-
        }
       
         window.clear(sf::Color::Blue);

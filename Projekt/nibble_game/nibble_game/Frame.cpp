@@ -10,8 +10,6 @@ void Frame::draw(sf::RenderWindow& window) const {
     top.setPosition(x, y);
     top.setFillColor(sf::Color::Red);
 
-    std::cout << x << " " << y << " " << this->position.x << " " << position.y << std::endl;
-    //std::cout<<length<< " " << thickness << std::endl;
 
     sf::RectangleShape bottom(sf::Vector2f(length, thickness));
     bottom.setPosition(x,y + length - thickness);
