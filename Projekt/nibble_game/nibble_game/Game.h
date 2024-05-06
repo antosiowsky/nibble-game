@@ -1,6 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <queue>
+
+#include "Frame.h"
+#include "Snake.h"
+
+#include <SFML/Graphics.hpp>
 
 class Game
 {
@@ -13,6 +19,7 @@ public:
 	std::vector<std::pair<std::string, int>> leaderBoard;
 
 	void gameStart();
+	void nextLevel();
 	void gameOver();
 	void gameEnd();
 	void showLeaderBoard();
@@ -21,6 +28,6 @@ public:
 
 
 	
-	Game() = default;// nie wiem co to 
+	//Game() = default;// nie wiem co to 
 };
 
