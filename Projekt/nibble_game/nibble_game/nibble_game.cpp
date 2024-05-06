@@ -24,7 +24,8 @@ int main() {
     
 
 
-
+    snake.grow();
+snake.grow();
 
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -37,7 +38,7 @@ int main() {
         }
 
      
-         if (directionQueue.size() <= 2)
+         if (directionQueue.size() <= 1)
             {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upKeyPressed && dir!='d' && (directionQueue.empty() || directionQueue.back() != '1'))
                 {
@@ -72,7 +73,7 @@ int main() {
                 snake.move(directionQueue.front());
                 dir = directionQueue.front();
                 directionQueue.pop();
-                switch (dir)
+                /*switch (dir)
                 {
                     case 'u':
 						upKeyPressed = false;
@@ -90,12 +91,29 @@ int main() {
 
                 default:
                     break;
-                }
+                }*/
             }
             else {
             snake.move(dir);
             }
             moveTimer = 0.0f;
+
+
+            if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                upKeyPressed = false;
+
+			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				downKeyPressed = false;
+
+			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				leftKeyPressed = false;
+
+			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+				rightKeyPressed = false;
+
+
+
+
        }
       
         window.clear(sf::Color::Blue);

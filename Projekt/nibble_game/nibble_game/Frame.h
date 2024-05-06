@@ -11,8 +11,6 @@ public:
 
     void draw(sf::RenderWindow& window) const override;
     float length;
-   
-    float x,y,thickness;
 };
 
 #endif // FRAME_H

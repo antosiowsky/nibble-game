@@ -2,11 +2,7 @@
 
 Frame::Frame(float x, float y, float thickness, float length)
     : Object(x, y, thickness) , length(length)  {
-    this->x = x;
-    this->y = y;
-    this->thickness = thickness;
 }
-//troche chyba nie tak to mialo dzialac bo object nie ma danych w srodku
 // //Frame::~Frame() {}
 
 void Frame::draw(sf::RenderWindow& window) const {
