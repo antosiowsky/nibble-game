@@ -2,9 +2,8 @@
 #define OBJECT_H
 
 #include <SFML/Graphics.hpp>
-#include "Game.h"
 
-class Object : public Game {
+class Object{
 public:
     Object(float x, float y, float thickness);
     //virtual ~Object();

@@ -20,7 +20,7 @@ private:
     int speed;
     std::list <sf::RectangleShape> segments;
     sf::Keyboard::Key direction = sf::Keyboard::Left;//possible bug
-
+    friend class Game;
 };
 
 #endif // SNAKE_H

@@ -1,7 +1,7 @@
 #include "snake.h"
 
 Snake::Snake(float x, float y, float thickness, float speed)
-    : Object(x, y, thickness), speed(game_speed) {
+    : Object(x, y, thickness), speed(speed) {
     sf::RectangleShape segment(sf::Vector2f(thickness, thickness));
     segment.setFillColor(sf::Color::Green);
     segment.setPosition(x, y);
