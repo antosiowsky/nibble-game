@@ -5,9 +5,9 @@ Game::Game(int game_speed) : game_speed(game_speed) {};
 void Game::gameStart() {
     
     //to do
-    // snake speed useless in snake class 
+    //  
     // add points remember to eliminate spawn bug 
-    // add score and lives counter
+    // add score and lives counter (stringstream in game loop)
     // add collision with walls and with snake itself 
     // 
 
@@ -16,19 +16,47 @@ void Game::gameStart() {
     float thickness = 25;
 
     sf::RenderWindow window(sf::VideoMode(windowHeight, windowWidth), "Snake Game");
+
+    //text//
+
+    sf::Font font;
+    font.loadFromFile("minecraft.ttf");
+    sf::Text text;
+    text.setFont(font);
+
+    text.setCharacterSize(1.5*thickness);
+    text.setFillColor(sf::Color::White);
+
+
+    text.setString("SAMMY --> lives: 5    0000");
+    sf::FloatRect textBounds = text.getLocalBounds();
+    text.setPosition(window.getSize().x - textBounds.width - thickness/5, thickness/5);
+
+    //////////////
+
+	//frame//
    
     Frame top(windowHeight, windowWidth, thickness);
 
+	//////////////
+
+    //snake//
+
     char dir = 'r';
 
-    Snake snake(100, 100, thickness, 10); // Example parameters
+    float sped = (1.0 / game_speed);
+    std::cout<<game_speed << std::endl;
+    std::cout << sped << std::endl;
+
+    Snake snake(100, 100, thickness); // Example parameters
     std::queue<char> directionQueue;
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
-    float moveInterval = 0.05f; // Adjust the snake's movement speedhere
+    float moveInterval = sped; // Adjust the snake's movement speedhere
     bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
 
+    //////////
 
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -100,16 +128,16 @@ void Game::gameStart() {
                 rightKeyPressed = false;
         }
 
-        window.clear(sf::Color::Blue);
+       
 
-        // Draw objects
+        // Draw objects //
+
+        window.clear(sf::Color::Blue);
         top.draw(window);
         snake.draw(window);
+        window.draw(text);
 
-        /* sf::RectangleShape top(sf::Vector2f(1000, 30));
-         top.setPosition(10, 10);
-         top.setFillColor(sf::Color::Red);
-         window.draw(top);*/
+		/////////////////
 
         window.display();
     }

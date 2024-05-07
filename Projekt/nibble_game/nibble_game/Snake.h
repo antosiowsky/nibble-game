@@ -6,7 +6,7 @@
 
 class Snake : public Object {
 public:
-    Snake(float x, float y, float thickness, float speed);
+    Snake(float x, float y, float thickness);
     
 
     void move(char direction);

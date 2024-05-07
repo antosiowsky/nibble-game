@@ -11,7 +11,7 @@ int main() {
     
     // Create frame
 
-    Game gra(32);
+    Game gra(10); // 1 to 50 skill level
 
     gra.gameStart();
     
@@ -26,7 +26,7 @@ int main() {
     int skill_level;
     char increase_speed, mono_colo;
 
-    std::cout << "Skill level (1 to 100)? \n 1 = Novice \n 90 = Expert \n 100 = Twidlle fingers \n";
+    std::cout << "Skill level (1 to 50)? \n 1 = Novice \n 30 = Expert \n 50 = Twidlle fingers \n";
     std::cin >> skill_level;
 
     std::cout << "Increase game speed during play (Y or N)? ";
