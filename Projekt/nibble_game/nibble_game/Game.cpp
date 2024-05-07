@@ -7,9 +7,10 @@ void Game::gameStart() {
     //to do
     //  
     // add points remember to eliminate spawn bug 
-    // add score and lives counter (stringstream in game loop)
     // add collision with walls and with snake itself 
     // 
+    // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
+    // góra dó³ w¹¿ zawraca na 1 kratce
 
     float windowHeight = 1600;
     float windowWidth = 900;
@@ -28,9 +29,11 @@ void Game::gameStart() {
     text.setFillColor(sf::Color::White);
 
 
-    text.setString("SAMMY --> lives: 5    0000");
+   /* text.setString("SAMMY --> lives: 5    0000");
     sf::FloatRect textBounds = text.getLocalBounds();
-    text.setPosition(window.getSize().x - textBounds.width - thickness/5, thickness/5);
+    text.setPosition(window.getSize().x - textBounds.width - thickness/5, thickness/5);*/
+
+    std::stringstream ss;
 
     //////////////
 
@@ -128,7 +131,15 @@ void Game::gameStart() {
                 rightKeyPressed = false;
         }
 
-       
+        // Draw text //
+
+        ss.str("");
+        ss<< "SAMMY --> lives: " << lives << "     " << score;
+        text.setString(ss.str());
+        sf::FloatRect textBounds = text.getLocalBounds();
+        text.setPosition(window.getSize().x - textBounds.width - thickness / 5, thickness / 5);
+
+        /////////////////
 
         // Draw objects //
 
