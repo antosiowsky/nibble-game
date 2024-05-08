@@ -6,11 +6,12 @@
 
 class Snake : public Object {
 public:
-    Snake(float x, float y, float thickness);
+    Snake(float x, float y, float thickness, float windowWidth, float windowHeight);
     
 
     void move(char direction);
     void grow();
+    void resetSnake();
     bool checkCollision() const;
 
 
@@ -20,7 +21,8 @@ private:
 
     std::list <sf::RectangleShape> segments;
     sf::Keyboard::Key direction = sf::Keyboard::Left;//possible bug
-    friend class Game;
+    float windowWidth;
+	float windowHeight;
 };
 
 #endif // SNAKE_H

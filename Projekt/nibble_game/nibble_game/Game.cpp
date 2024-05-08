@@ -12,7 +12,7 @@ void Game::gameStart() {
     // 
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
-
+    bool colisionFlag = 0;
   float windowHeight = 1600;
   float windowWidth = 900;
     float thickness = 25;
@@ -54,11 +54,12 @@ void Game::gameStart() {
     float sped = (1.0 / game_speed);
 
 
-    Snake snake(100, 100, thickness); // Example parameters
+    Snake snake(300, 300, thickness, getWindowWidth(), getWindowHeight()); // Example parameters
     std::queue<char> directionQueue;
     sf::Clock clock;
     float deltaTime = 0.0f;
     float moveTimer = 0.0f;
+    float roundTime = 0.0f; 
     float moveInterval = sped; // Adjust the snake's movement speedhere
     bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
 
@@ -72,6 +73,7 @@ void Game::gameStart() {
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
         moveTimer += deltaTime;
+        roundTime += deltaTime;
 
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -124,8 +126,8 @@ void Game::gameStart() {
                 snake.move(dir);
             }
             moveTimer = 0.0f;
-
-
+   
+            
             if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                 upKeyPressed = false;
 
@@ -139,9 +141,23 @@ void Game::gameStart() {
                 rightKeyPressed = false;
         }
 
-        if (snake.checkCollision() == true)
-           // std::cout << "uderzenie";
+        
 
+        if (snake.checkCollision() == true && roundTime > 0.5) {
+            std::cout << "uderzenie";
+
+            colisionFlag = 1;
+
+            snake.resetSnake();
+            sf::sleep(sf::seconds(0.5));
+            lives--;
+            score -= 1000;
+            snake.grow();
+            snake.grow();
+            dir = 'r';
+        }
+           
+        //std::cout << roundTime;
         // Draw text //
 
         ss.str("");

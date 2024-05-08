@@ -1,7 +1,7 @@
 #include "snake.h"
 
-Snake::Snake(float x, float y, float thickness)
-    : Object(x, y, thickness){
+Snake::Snake(float x, float y, float thickness, float windowWidth, float windowHeight)
+    : Object(x, y, thickness), windowWidth(windowWidth), windowHeight(windowHeight) {
     sf::RectangleShape segment(sf::Vector2f(thickness, thickness));
     segment.setFillColor(sf::Color::Green);
     segment.setPosition(x, y);
@@ -69,7 +69,6 @@ bool Snake::checkCollision() const {
 
     // Pobieramy pozycjê g³owy wê¿a
     sf::Vector2f headPos = segments.front().getPosition();
-
     // Sprawdzamy kolizjê z samym sob¹
     for (auto it = std::next(segments.begin()); it != segments.end(); ++it) {
         if (headPos == it->getPosition()) {
@@ -77,22 +76,16 @@ bool Snake::checkCollision() const {
             return true;
         }
     }
+    float frameLeft = thickness +1 ;
+    float frameRight = windowWidth - 2 * thickness;  //x 
+    float frameTop = 2 * thickness +1;
+    float frameBottom = windowHeight - 2 * thickness; //y 
 
-    float frameLeft = thickness;
-    float frameRight = - 2 * thickness;  //x 
-    float frameTop = 2 * thickness;
-    float frameBottom =  - 2 * thickness; //y 
-
-    // Sprawdzamy czy g³owa wê¿a wychodzi poza obramowanie
     if (headPos.x < frameLeft || headPos.x >= frameRight || headPos.y < frameTop || headPos.y >= frameBottom) {
         return true;
     }
 
-
-    // Jeœli nie dosz³o do kolizji z samym sob¹ ani z obramowaniem, zwracamy false
     return false;
-
-    // Jeœli nie dosz³o do kolizji z samym sob¹, zwracamy false
     
 }
 
@@ -100,4 +93,13 @@ void Snake::draw(sf::RenderWindow& window) const {
     for (const auto& segment : segments) {
         window.draw(segment);
     }
+}
+
+void Snake::resetSnake() {
+    // Usuwamy wszystkie segmenty wê¿a oprócz g³owy
+    segments.erase(std::next(segments.begin()), segments.end());
+
+    segments.front().setPosition(x, y);
+
+    // Ustawiamy kierunek ruchu na domyœlny ('r')
 }
