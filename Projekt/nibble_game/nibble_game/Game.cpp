@@ -1,6 +1,7 @@
 #include "Game.h"
 
-Game::Game(int game_speed) : game_speed(game_speed) {};
+Game::Game(int game_speed, float windowWidth, float windowHeight) : 
+    game_speed(game_speed) , windowWidth(windowWidth), windowHeight(windowHeight){};
 
 void Game::gameStart() {
     
@@ -12,11 +13,14 @@ void Game::gameStart() {
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
 
-    float windowHeight = 1600;
-    float windowWidth = 900;
+  float windowHeight = 1600;
+  float windowWidth = 900;
     float thickness = 25;
+    std::cout<<getWindowHeight() << std::endl; 
 
-    sf::RenderWindow window(sf::VideoMode(windowHeight, windowWidth), "Snake Game");
+    std::cout << getWindowWidth() << std::endl;
+
+    sf::RenderWindow window(sf::VideoMode(getWindowWidth() ,getWindowHeight() ), "Snake Game");
 
     //text//
 
@@ -28,7 +32,7 @@ void Game::gameStart() {
     text.setCharacterSize(1.5*thickness);
     text.setFillColor(sf::Color::White);
 
-
+    
    /* text.setString("SAMMY --> lives: 5    0000");
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setPosition(window.getSize().x - textBounds.width - thickness/5, thickness/5);*/
@@ -39,7 +43,7 @@ void Game::gameStart() {
 
 	//frame//
    
-    Frame top(windowHeight, windowWidth, thickness);
+    Frame top(getWindowWidth(), getWindowHeight(), thickness);
 
 	//////////////
 
@@ -48,8 +52,7 @@ void Game::gameStart() {
     char dir = 'r';
 
     float sped = (1.0 / game_speed);
-    std::cout<<game_speed << std::endl;
-    std::cout << sped << std::endl;
+
 
     Snake snake(100, 100, thickness); // Example parameters
     std::queue<char> directionQueue;
@@ -58,6 +61,11 @@ void Game::gameStart() {
     float moveTimer = 0.0f;
     float moveInterval = sped; // Adjust the snake's movement speedhere
     bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
+
+    snake.grow();
+    snake.grow();
+    snake.grow();
+    snake.grow();
 
     //////////
 
@@ -130,6 +138,9 @@ void Game::gameStart() {
             if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 rightKeyPressed = false;
         }
+
+        if (snake.checkCollision() == true)
+           // std::cout << "uderzenie";
 
         // Draw text //
 

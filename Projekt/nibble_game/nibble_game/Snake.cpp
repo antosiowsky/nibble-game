@@ -66,10 +66,35 @@ void Snake::grow() {
 }
 
 bool Snake::checkCollision() const {
-    // Implement collision detection logic
-    return false;
-}
 
+    // Pobieramy pozycjê g³owy wê¿a
+    sf::Vector2f headPos = segments.front().getPosition();
+
+    // Sprawdzamy kolizjê z samym sob¹
+    for (auto it = std::next(segments.begin()); it != segments.end(); ++it) {
+        if (headPos == it->getPosition()) {
+            // Jeœli g³owa wê¿a koliduje z którymkolwiek z segmentów cia³a, zwracamy true
+            return true;
+        }
+    }
+
+    float frameLeft = thickness;
+    float frameRight = - 2 * thickness;  //x 
+    float frameTop = 2 * thickness;
+    float frameBottom =  - 2 * thickness; //y 
+
+    // Sprawdzamy czy g³owa wê¿a wychodzi poza obramowanie
+    if (headPos.x < frameLeft || headPos.x >= frameRight || headPos.y < frameTop || headPos.y >= frameBottom) {
+        return true;
+    }
+
+
+    // Jeœli nie dosz³o do kolizji z samym sob¹ ani z obramowaniem, zwracamy false
+    return false;
+
+    // Jeœli nie dosz³o do kolizji z samym sob¹, zwracamy false
+    
+}
 
 void Snake::draw(sf::RenderWindow& window) const {
     for (const auto& segment : segments) {

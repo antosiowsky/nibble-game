@@ -12,11 +12,14 @@
 class Game
 {
 public:
-	Game(int game_speed);
+	Game(int game_speed, float windowWidth, float windowHeight);
 	int score = 0;
 	int lives = 5;
 	int level = 1;
 	int game_speed;
+	float windowWidth;
+	float windowHeight;
+
 	std::vector<std::pair<std::string, int>> leaderBoard;
 
 	void gameStart();
@@ -26,9 +29,10 @@ public:
 	void showLeaderBoard();
 	void addScore(std::string name, int score);
 
+	float getWindowWidth() const { return windowWidth; }
+	float getWindowHeight() const { return windowHeight; }
 
-
-	
+	friend class Snake;
 	//Game() = default;// nie wiem co to 
 };
 

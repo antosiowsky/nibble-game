@@ -17,7 +17,7 @@ public:
     void draw(sf::RenderWindow& window) const override;
 
 private:
-    int speed;
+
     std::list <sf::RectangleShape> segments;
     sf::Keyboard::Key direction = sf::Keyboard::Left;//possible bug
     friend class Game;
