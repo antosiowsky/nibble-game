@@ -13,7 +13,7 @@ public:
     void grow();
     void resetSnake();
     bool checkCollision() const;
-
+    const std::list<sf::RectangleShape>& getSegments() const;
 
     void draw(sf::RenderWindow& window) const override;
 

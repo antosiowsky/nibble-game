@@ -6,6 +6,7 @@
 #include <sstream>
 #include "Frame.h"
 #include "Snake.h"
+#include "Point.h"
 
 #include <SFML/Graphics.hpp>
 

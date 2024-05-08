@@ -95,6 +95,11 @@ void Snake::draw(sf::RenderWindow& window) const {
     }
 }
 
+const std::list<sf::RectangleShape>& Snake::getSegments() const {
+    return segments;
+}
+
+
 void Snake::resetSnake() {
     // Usuwamy wszystkie segmenty wê¿a oprócz g³owy
     segments.erase(std::next(segments.begin()), segments.end());

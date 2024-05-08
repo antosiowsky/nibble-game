@@ -7,11 +7,17 @@ void Game::gameStart() {
     
     //to do
     //  
-    // add points remember to eliminate spawn bug 
-    // add collision with walls and with snake itself 
+    // eliminate point frame spawn bug
+    // add levels
+    // add scoreboard
+    // add menu
+    // add sound
+    // 
     // 
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
+
+
     bool colisionFlag = 0;
   float windowHeight = 1600;
   float windowWidth = 900;
@@ -47,6 +53,7 @@ void Game::gameStart() {
 
 	//////////////
 
+
     //snake//
 
     char dir = 'r';
@@ -69,6 +76,15 @@ void Game::gameStart() {
     snake.grow();
 
     //////////
+
+
+        //point//
+
+    Point point(thickness, getWindowWidth(), getWindowHeight(), snake);
+
+    
+    //////////////
+
 
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
@@ -141,7 +157,14 @@ void Game::gameStart() {
                 rightKeyPressed = false;
         }
 
-        
+        if (point.checkCollision(snake)) {
+            std::cout << "zebrano";
+            score += 1000;
+            snake.grow();
+            snake.grow();
+            snake.grow();
+            
+        }
 
         if (snake.checkCollision() == true && roundTime > 0.5) {
             std::cout << "uderzenie";
@@ -174,7 +197,7 @@ void Game::gameStart() {
         top.draw(window);
         snake.draw(window);
         window.draw(text);
-
+        point.draw(window);
 		/////////////////
 
         window.display();
