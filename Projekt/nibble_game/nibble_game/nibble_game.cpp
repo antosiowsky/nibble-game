@@ -15,7 +15,7 @@ int main() {
 
     //gra.gameStart();
 
-    //gra.gameEnd();
+    gra.gameEnd();
     
     std::cout << "leaderboards"; 
     return 0;

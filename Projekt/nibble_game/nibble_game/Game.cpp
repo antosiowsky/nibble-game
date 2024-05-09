@@ -219,12 +219,12 @@ void Game::gameStart() {
 
 void Game::gameEnd() {
 
-   /* sf::Music music;
+    sf::Music music;
     if (!music.openFromFile("champions.ogg")) {
         std::cerr << "Error: Unable to load music." << std::endl;
         return;
     }
-    music.play();*/
+    music.play();
 
 
 
