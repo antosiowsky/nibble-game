@@ -13,7 +13,11 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     // add levels
     // add graphic scoreboard
     // add grapic menu
+    // 
     // add sound
+    // 
+    // zrobic zeby waz respil sie o takiej dlugosci jaki jest
+    // obecnie punkt
     // 
     // na module wystarczy tylko 2 klasy zrobic
     // 
@@ -219,12 +223,12 @@ void Game::gameStart() {
 
 void Game::gameEnd() {
 
-    sf::Music music;
+   /* sf::Music music;
     if (!music.openFromFile("champions.ogg")) {
         std::cerr << "Error: Unable to load music." << std::endl;
         return;
     }
-    music.play();
+    music.play();*/
 
 
 

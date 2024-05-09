@@ -13,7 +13,7 @@ int main() {
 
     Game gra(20,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
 
-    //gra.gameStart();
+    gra.gameStart();
 
     gra.gameEnd();
     
