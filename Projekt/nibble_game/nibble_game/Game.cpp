@@ -1,16 +1,18 @@
 #include "Game.h"
 
+namespace rng = std::ranges;
+namespace fs = std::filesystem;
+
+
 Game::Game(int game_speed, float windowWidth, float windowHeight) : 
     game_speed(game_speed) , windowWidth(windowWidth), windowHeight(windowHeight){};
 
-void Game::gameStart() {
-    
-    //to do
+//to do
     //  
     //
     // add levels
-    // add scoreboard
-    // add menu
+    // add graphic scoreboard
+    // add grapic menu
     // add sound
     // 
     // na module wystarczy tylko 2 klasy zrobic
@@ -18,6 +20,11 @@ void Game::gameStart() {
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
 
+
+
+void Game::gameStart() {
+    
+    
 
     bool colisionFlag = 0;
   float windowHeight = 1600;
@@ -206,4 +213,75 @@ void Game::gameStart() {
 
         window.display();
     }
+}
+
+
+
+void Game::gameEnd() {
+
+   /* sf::Music music;
+    if (!music.openFromFile("champions.ogg")) {
+        std::cerr << "Error: Unable to load music." << std::endl;
+        return;
+    }
+    music.play();*/
+
+
+
+   // Sprawdzanie i tworzenie pliku leaderboards.txt
+    fs::path currentPath = fs::current_path();
+    fs::path leaderboardFilePath = currentPath / "leaderboards.txt";
+
+    std::vector<std::tuple<std::string, std::string, int>> leaderboardData;
+
+    // Odczytanie poprzednich wyników z pliku
+    std::ifstream readFile(leaderboardFilePath);
+    if (readFile.is_open()) {
+        std::string line;
+        while (std::getline(readFile, line)) {
+            std::regex pattern(R"((\d{2}-\d{2}-\d{4}) (\d{2}:\d{2}:\d{2}) (\d+))");
+            std::smatch matches;
+            if (std::regex_match(line, matches, pattern)) {
+                leaderboardData.push_back({ matches[1], matches[2], std::stoi(matches[3]) });
+            }
+        }
+        readFile.close();
+    }
+
+    // Dodanie nowego wyniku
+    auto now = std::chrono::system_clock::now();
+    auto now_c = std::chrono::system_clock::to_time_t(now);
+    std::tm parts;
+    localtime_s(&parts, &now_c);
+
+    std::ostringstream dateStream;
+    dateStream << std::put_time(&parts, "%d-%m-%Y");
+    std::ostringstream timeStream;
+    timeStream << std::put_time(&parts, "%H:%M:%S");
+
+    leaderboardData.push_back({ dateStream.str(), timeStream.str(), score });
+
+    // Sortowanie danych
+    rng::sort(leaderboardData, [](const auto& a, const auto& b) {
+        return std::get<2>(a) > std::get<2>(b);
+        });
+
+    // Zapisywanie danych do pliku
+    std::ofstream file(leaderboardFilePath);
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open leaderboard file." << std::endl;
+        return;
+    }
+    for (const auto& entry : leaderboardData) {
+        file << std::get<0>(entry) << " " << std::get<1>(entry) << " " << std::get<2>(entry) << std::endl;
+    }
+    file.close();
+
+    // Wyœwietlanie posortowanych wyników
+    std::cout << "Leaderboard:" << std::endl;
+    for (const auto& entry : leaderboardData) {
+        std::cout << std::get<0>(entry) << " " << std::get<1>(entry) << " - " << std::get<2>(entry) << std::endl;
+    }
+
+
 }

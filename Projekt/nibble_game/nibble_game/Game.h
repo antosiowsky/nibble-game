@@ -4,6 +4,11 @@
 #include <queue>
 #include <string>
 #include <sstream>
+#include <fstream>
+#include <filesystem>
+#include <regex>
+#include <ranges>
+//#include <SFML/Audio.hpp>
 #include "Frame.h"
 #include "Snake.h"
 #include "Point.h"
