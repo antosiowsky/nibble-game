@@ -11,11 +11,11 @@ int main() {
     
     // Create frame
 
-    Game gra(10,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
+    Game gra(20,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
 
     gra.gameStart();
     
-
+    std::cout << "leaderboards"; 
     return 0;
 }
 

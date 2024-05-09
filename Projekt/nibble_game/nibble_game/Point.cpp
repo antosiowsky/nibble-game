@@ -3,8 +3,9 @@
 #include <iostream>
 
 Point::Point(float thickness, float frameWidth, float frameHeight, const Snake& snake)
-    : Object(frameWidth, frameHeight, thickness), value(0) {
-    generatePoint(thickness, frameWidth, frameHeight, snake);
+    : Object(frameWidth, frameHeight, thickness) {
+    font.loadFromFile("minecraft.ttf");
+    shape.setFont(font);
 }
 
 bool Point::checkCollision(const Snake& snake) {
@@ -28,21 +29,16 @@ void Point::draw(sf::RenderWindow& window) const {
 void Point::generatePoint(float thickness, float frameWidth, float frameHeight, const Snake& snake) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> disX(1, (int)((frameWidth - 2 * thickness) / thickness));
-    std::uniform_int_distribution<int> disY(1, (int)((frameHeight - 2 * thickness) / thickness));
-
+    std::uniform_int_distribution<int> disX(2, (int)((frameWidth - 4 * thickness) / thickness)); // Zmiana zakresu dla X
+    std::uniform_int_distribution<int> disY(2, (int)((frameHeight - 4 * thickness) / thickness)); // Zmiana zakresu dla Y
 
     bool validPosition = false;
     while (!validPosition) {
         validPosition = true;
-        int x = disX(gen) * thickness;
-        int y = disY(gen) * thickness;
+        int x = disX(gen) * thickness + thickness; // Dodanie dodatkowego odstêpu od obramowania
+        int y = disY(gen) * thickness + thickness; // Dodanie dodatkowego odstêpu od obramowania
         position.x = x;
         position.y = y;
-        if (position.x < thickness && position.y < 2*thickness)
-            validPosition = false;
-        if (position.x > frameWidth - thickness && position.y > frameHeight - 2*thickness)
-            validPosition = false;
         for (const auto& segment : snake.getSegments()) {
             sf::FloatRect segmentBounds = segment.getGlobalBounds();
             if (segmentBounds.contains(position)) {
@@ -51,8 +47,15 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
             }
         }
     }
+    
+    if (i == 58) i = 49;
 
-    shape.setSize(sf::Vector2f(thickness, thickness));
-    shape.setPosition(position);
+    shape.setCharacterSize(thickness); // Ustawienie rozmiaru tekstu
+    shape.setFont(font); // Ustawienie czcionki
     shape.setFillColor(sf::Color::Yellow);
+    shape.setPosition(position);
+
+    shape.setString(i); // Ustawienie tekstu na "1"
+    i++;
 }
+

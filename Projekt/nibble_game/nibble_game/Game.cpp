@@ -7,7 +7,7 @@ void Game::gameStart() {
     
     //to do
     //  
-    // eliminate point frame spawn bug
+    //
     // add levels
     // add scoreboard
     // add menu
@@ -71,10 +71,6 @@ void Game::gameStart() {
     float moveInterval = sped; // Adjust the snake's movement speedhere
     bool upKeyPressed = false, downKeyPressed = false, leftKeyPressed = false, rightKeyPressed = false;
 
-    snake.grow();
-    snake.grow();
-    snake.grow();
-    snake.grow();
 
     //////////
 
@@ -82,6 +78,7 @@ void Game::gameStart() {
         //point//
 
     Point point(thickness, getWindowWidth(), getWindowHeight(), snake);
+    point.generatePoint(thickness, getWindowWidth(), getWindowHeight(), snake);
 
     
     //////////////
@@ -160,10 +157,13 @@ void Game::gameStart() {
 
         if (point.checkCollision(snake)) {
             std::cout << "zebrano";
-            score += 1000;
+            score += 1000*scoreMultiplier;
             snake.grow();
             snake.grow();
             snake.grow();
+            scoreMultiplier++;
+            if (scoreMultiplier == 10)
+                scoreMultiplier = 1;
             
         }
 
@@ -189,6 +189,9 @@ void Game::gameStart() {
         text.setString(ss.str());
         sf::FloatRect textBounds = text.getLocalBounds();
         text.setPosition(window.getSize().x - textBounds.width - thickness / 5, thickness / 5);
+
+        if (lives == 0)
+        window.close();
 
         /////////////////
 
