@@ -13,6 +13,7 @@ void Game::gameStart() {
     // add menu
     // add sound
     // 
+    // na module wystarczy tylko 2 klasy zrobic
     // 
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce

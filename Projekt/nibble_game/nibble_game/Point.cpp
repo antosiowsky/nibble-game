@@ -31,6 +31,7 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
     std::uniform_int_distribution<int> disX(1, (int)((frameWidth - 2 * thickness) / thickness));
     std::uniform_int_distribution<int> disY(1, (int)((frameHeight - 2 * thickness) / thickness));
 
+
     bool validPosition = false;
     while (!validPosition) {
         validPosition = true;
@@ -38,9 +39,9 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
         int y = disY(gen) * thickness;
         position.x = x;
         position.y = y;
-        if (position.x < 100 && position.y < 100)
+        if (position.x < thickness && position.y < 2*thickness)
             validPosition = false;
-        if (position.x > frameWidth - 100 && position.y > frameHeight - 100)
+        if (position.x > frameWidth - thickness && position.y > frameHeight - 2*thickness)
             validPosition = false;
         for (const auto& segment : snake.getSegments()) {
             sf::FloatRect segmentBounds = segment.getGlobalBounds();
@@ -51,7 +52,7 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
         }
     }
 
-    shape.setSize(sf::Vector2f(thickness, 2 * thickness));
+    shape.setSize(sf::Vector2f(thickness, thickness));
     shape.setPosition(position);
     shape.setFillColor(sf::Color::Yellow);
 }
