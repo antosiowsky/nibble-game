@@ -12,7 +12,7 @@ public:
     Obstacle(float x, float y, float thickness, float length, char direction);
 
     void draw(sf::RenderWindow& window) const;
-    bool checkCollision(sf::RectangleShape head) const;
+    bool checkCollision(sf::Vector2f head) const;
 
     float getLength() const { return length; }
     char getDirection() const { return direction; }

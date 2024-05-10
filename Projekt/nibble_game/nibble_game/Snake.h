@@ -3,6 +3,7 @@
 
 #include "object.h"
 #include <list>
+#include "Obstacle.h"
 
 class Snake : public Object {
 public:
@@ -16,7 +17,7 @@ public:
     const std::list<sf::RectangleShape>& getSegments() const;
 
     void draw(sf::RenderWindow& window) const override;
-
+    bool checkCollisionWithObstacles(const std::vector<Obstacle>& obstacles) const;
 private:
 
     std::list <sf::RectangleShape> segments;

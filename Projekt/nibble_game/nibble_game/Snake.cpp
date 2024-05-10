@@ -108,3 +108,15 @@ void Snake::resetSnake() {
 
     // Ustawiamy kierunek ruchu na domyœlny ('r')
 }
+
+bool Snake::checkCollisionWithObstacles(const std::vector<Obstacle>& obstacles) const {
+    sf::Vector2f headPos = segments.front().getPosition();
+    
+    for (const auto& segment : segments) {
+        for (const auto& obstacle : obstacles) {
+            if (obstacle.checkCollision(headPos))
+                return true;
+        }
+    }
+    return false;
+}

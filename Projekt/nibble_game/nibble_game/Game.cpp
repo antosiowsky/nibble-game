@@ -14,10 +14,11 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     // add graphic scoreboard
     // add grapic menu
     // 
-    // add sound
+    // ustawic obstacles w dobrych kratkach 
+    // 
     // 
     // zrobic zeby waz respil sie o takiej dlugosci jaki jest
-    // obecnie punkt
+    // obecnie punkt!
     // 
     // na module wystarczy tylko 2 klasy zrobic
     // 
@@ -66,6 +67,11 @@ void Game::gameStart() {
 	//////////////
 
 
+    //Obstacles//
+
+    Obstacle wall1(233, 233, thickness, 600.0, 'r');
+    std::vector<Obstacle> obstacles;
+    obstacles.push_back(wall1);
     //snake//
 
     char dir = 'r';
@@ -180,6 +186,9 @@ void Game::gameStart() {
             
         }
 
+        if (snake.checkCollisionWithObstacles(obstacles))
+            std::cout << "collision with wall1";
+
         if (snake.checkCollision() == true && roundTime > 0.5) {
             std::cout << "uderzenie";
 
@@ -211,12 +220,17 @@ void Game::gameStart() {
 
         // Draw objects //
 
+
+
         window.clear(sf::Color::Blue);
         top.draw(window);
         snake.draw(window);
         window.draw(text);
         point.draw(window);
 		/////////////////
+
+        wall1.draw(window);
+
 
         window.display();
     }

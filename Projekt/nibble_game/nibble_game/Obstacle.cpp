@@ -10,7 +10,7 @@ void Obstacle::draw(sf::RenderWindow& window) const {
     switch (direction) {
     case 'r': // right
         obstacle.setSize(sf::Vector2f(length, thickness));
-        obstacle.setPosition(x, y - thickness / 2);
+        obstacle.setPosition(x, y);
         break;
     case 'd': // down
         obstacle.setSize(sf::Vector2f(thickness, length));
@@ -35,44 +35,45 @@ void Obstacle::draw(sf::RenderWindow& window) const {
     window.draw(obstacle);
 }
 
-bool Obstacle::checkCollision(sf::RectangleShape snakeHead) const {
-     sf::Vector2f  head=snakeHead.getPosition();
-        switch (direction) {
-        case 'r': // right
-            if (head.x + thickness > x &&
-                head.y > y - thickness / 2 &&
-                head.y < y + thickness - thickness / 2) {
-                return true;
-            }
-            break;
-        case 'd': // down
-            if (head.x > x - thickness / 2 &&
-                head.x < x + thickness - thickness / 2 &&
-                head.y + thickness > y &&
-                head.y < y + length) {
-                return true;
-            }
-            break;
-        case 'v': // vertical
-            if (head.x > x - thickness / 2 &&
-                head.x < x + thickness - thickness / 2 &&
-                head.y > y - length / 2 - thickness / 2 &&
-                head.y < y + length / 2 + thickness / 2) {
-                return true;
-            }
-            break;
-        case 'h': // horizontal
-            if (head.x > x - length / 2 - thickness / 2 &&
-                head.x < x + length / 2 + thickness / 2 &&
-                head.y > y - thickness / 2 &&
-                head.y < y + thickness - thickness / 2) {
-                return true;
-            }
-            break;
-        default:
-            break;
+bool Obstacle::checkCollision(sf::Vector2f head) const {
+    switch (direction) {
+    case 'r': // right
+        if (head.x + thickness > x &&
+            head.x < x + length &&
+            head.y > y - thickness / 2 &&
+            head.y < y + thickness - thickness / 2) {
+            return true;
         }
-    
+        break;
+    case 'd': // down
+        if (head.x > x - thickness / 2 &&
+            head.x < x + thickness - thickness / 2 &&
+            head.y + thickness > y &&
+            head.y < y + length) {
+            return true;
+        }
+        break;
+    case 'v': // vertical
+        if (head.x > x - thickness / 2 &&
+            head.x < x + thickness - thickness / 2 &&
+            head.y > y - length / 2 - thickness / 2 &&
+            head.y < y + length / 2 + thickness / 2) {
+            return true;
+        }
+        break;
+    case 'h': // horizontal
+        if (head.x > x - length / 2 - thickness / 2 &&
+            head.x < x + length / 2 + thickness / 2 &&
+            head.y > y - thickness / 2 &&
+            head.y < y + thickness - thickness / 2) {
+            return true;
+        }
+        break;
+    default:
+        break;
+    }
 
     return false;
 }
+
+
