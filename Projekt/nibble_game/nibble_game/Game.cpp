@@ -169,9 +169,11 @@ void Game::gameStart() {
         if (point.checkCollision(snake)) {
             std::cout << "zebrano";
             score += 1000*scoreMultiplier;
-            snake.grow();
-            snake.grow();
-            snake.grow();
+
+            int snakeLength = 3 + 2 * (scoreMultiplier - 1);
+            for (int i = 0; i < snakeLength; i++)
+                snake.grow();
+
             scoreMultiplier++;
             if (scoreMultiplier == 10)
                 scoreMultiplier = 1;
@@ -187,8 +189,9 @@ void Game::gameStart() {
             sf::sleep(sf::seconds(0.5));
             lives--;
             score -= 1000;
-            snake.grow();
-            snake.grow();
+            int snakeLength = 3 + 2 * (scoreMultiplier - 1);
+            for (int i = 0; i < snakeLength; i++)
+                snake.grow();
             dir = 'r';
         }
            
