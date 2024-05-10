@@ -162,6 +162,7 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="nibble_game.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Snake.h" />
   </ItemGroup>
