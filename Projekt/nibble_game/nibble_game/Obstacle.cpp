@@ -18,11 +18,11 @@ void Obstacle::draw(sf::RenderWindow& window) const {
         break;
     case 'v': // vertical
         obstacle.setSize(sf::Vector2f(thickness, length));
-        obstacle.setPosition(x - thickness / 2, y - length / 2);
+        obstacle.setPosition(x, y - length / 2);
         break;
     case 'h': // horizontal
         obstacle.setSize(sf::Vector2f(length, thickness));
-        obstacle.setPosition(x - length / 2, y - thickness / 2);
+        obstacle.setPosition(x - length / 2, y );
         break;
     default:
         // Default to right direction
@@ -34,7 +34,6 @@ void Obstacle::draw(sf::RenderWindow& window) const {
     obstacle.setFillColor(sf::Color::Red);
     window.draw(obstacle);
 }
-
 bool Obstacle::checkCollision(sf::Vector2f head) const {
     switch (direction) {
     case 'r': // right
@@ -56,16 +55,16 @@ bool Obstacle::checkCollision(sf::Vector2f head) const {
     case 'v': // vertical
         if (head.x > x - thickness / 2 &&
             head.x < x + thickness - thickness / 2 &&
-            head.y > y - length / 2 &&
+            head.y >= y - length / 2 &&
             head.y < y + length / 2) {
             return true;
         }
         break;
     case 'h': // horizontal
-        if (head.x > x - length / 2 &&
+        if (head.x >= x - length / 2 && //ZMIANA
             head.x < x + length / 2 &&
             head.y > y - thickness / 2 &&
-            head.y < y + thickness - thickness / 2) {
+            head.y < y + thickness / 2) {
             return true;
         }
         break;

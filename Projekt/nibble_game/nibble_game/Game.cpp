@@ -71,22 +71,38 @@ void Game::gameStart() {
     float centreX = top.getCenterPosition().x;
 
     float centreY = top.getCenterPosition().y; 
-    /*int liczba = windowHeight;
-    float zaokraglona;
+    int liczba = centreX;
+    float zaokraglonaX;
 
     int reszta = liczba % 100;
     int setki = liczba / 100 * 100;
 
     if (reszta < 25)
-        zaokraglona = setki;
+        zaokraglonaX = setki;
     else if (reszta < 50)
-        zaokraglona = setki + 25;
+        zaokraglonaX = setki + 25;
     else if (reszta < 75)
-        zaokraglona = setki + 50;
+        zaokraglonaX = setki + 50;
     else
-        zaokraglona = setki + 75;*/
+        zaokraglonaX = setki + 75;
 
-    Obstacle wall1(225, 225, thickness, 600.0, 'r');
+    int liczbaY = centreY;
+    float zaokraglonaY;
+
+     reszta = liczbaY % 100;
+     setki = liczbaY / 100 * 100;
+
+    if (reszta < 25)
+        zaokraglonaY = setki;
+    else if (reszta < 50)
+        zaokraglonaY = setki + 25;
+    else if (reszta < 75)
+        zaokraglonaY = setki + 50;
+    else
+        zaokraglonaY = setki + 75;
+
+    std::cout << zaokraglonaX << " " << zaokraglonaY << std::endl;
+    Obstacle wall1(zaokraglonaX, zaokraglonaY, thickness, 200.0, 'v');
     std::vector<Obstacle> obstacles;
     obstacles.push_back(wall1);
     //snake//
