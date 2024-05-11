@@ -260,7 +260,7 @@ void Game::gameStart() {
 
         if (point.checkCollision(snake, obstacles)) {
             std::cout << "zebrano";
-            score += 1000*scoreMultiplier;
+            score += 100*scoreMultiplier;
 
             int snakeLength = 3 + 2 * (scoreMultiplier - 1);
             for (int i = 0; i < snakeLength; i++)
@@ -288,6 +288,9 @@ void Game::gameStart() {
             for (int i = 0; i < snakeLength; i++)
                 snake.grow();
             dir = 'r';
+            point.resetValue();
+            point.generatePoint(thickness, getWindowWidth(), getWindowHeight(), snake, obstacles);
+            scoreMultiplier = 1;
         }
            
         //std::cout << roundTime;

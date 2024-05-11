@@ -13,7 +13,7 @@ bool Point::checkCollision(const Snake& snake, const std::vector<Obstacle>& obst
     for (const auto& segment : snake.getSegments()) {
         sf::FloatRect segmentBounds = segment.getGlobalBounds();
         if (pointBounds.intersects(segmentBounds)) {
-            value++;
+            
             generatePoint(thickness, this->x, this->y, snake, obstacles);
             return true;
         }
@@ -62,4 +62,7 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
 
     shape.setString(i); // Ustawienie tekstu na "1"
     i++;
+}
+void Point::resetValue() {
+    i = 49;
 }
