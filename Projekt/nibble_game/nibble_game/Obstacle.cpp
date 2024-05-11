@@ -16,6 +16,14 @@ void Obstacle::draw(sf::RenderWindow& window) const {
         obstacle.setSize(sf::Vector2f(thickness, length));
         obstacle.setPosition(x, y);
         break;
+    case 'l': // left
+        obstacle.setSize(sf::Vector2f(-length, thickness));
+        obstacle.setPosition(x, y);
+        break;
+    case 'u': // up
+        obstacle.setSize(sf::Vector2f(thickness, -length));
+        obstacle.setPosition(x, y);
+        break;
     case 'v': // vertical
         obstacle.setSize(sf::Vector2f(thickness, length));
         obstacle.setPosition(x, y - length / 2);

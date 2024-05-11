@@ -11,7 +11,7 @@ int main() {
     
     // Create frame
     //1600x900
-    Game gra(16,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
+    Game gra(1,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
 
     gra.gameStart();
 

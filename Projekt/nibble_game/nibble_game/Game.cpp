@@ -25,16 +25,30 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
 
-
+float zaokraglona(float value) {
+    int liczba = static_cast<int>(value);
+    float zaokraglona;
+    int reszta = liczba % 100;
+    int setki = liczba / 100 * 100;
+    if (reszta < 25)
+        zaokraglona = setki;
+    else if (reszta < 50)
+        zaokraglona = setki + 25;
+    else if (reszta < 75)
+        zaokraglona = setki + 50;
+    else
+        zaokraglona = setki + 75;
+    return zaokraglona;
+}
 
 void Game::gameStart() {
     
-    
-
+   
     bool colisionFlag = 0;
-    bool levelChangeFlag = 0;
+    bool levelChangeFlag = 1;
     float windowHeight = 1600;
     float windowWidth = 900;
+
     float thickness = 25;
     std::cout<<getWindowHeight() << std::endl; 
 
@@ -70,49 +84,26 @@ void Game::gameStart() {
 
     //Obstacles//
     
-        float centreX = top.getCenterPosition().x;
-        float centreY = top.getCenterPosition().y;
-        int liczba = centreX;
-        float zaokraglonaX;
-        int reszta = liczba % 100;
-        int setki = liczba / 100 * 100;
-        if (reszta < 25)
-            zaokraglonaX = setki;
-        else if (reszta < 50)
-            zaokraglonaX = setki + 25;
-        else if (reszta < 75)
-            zaokraglonaX = setki + 50;
-        else
-            zaokraglonaX = setki + 75;
-        int liczbaY = centreY;
-        float zaokraglonaY;
-        reszta = liczbaY % 100;
-        setki = liczbaY / 100 * 100;
-        if (reszta < 25)
-            zaokraglonaY = setki;
-        else if (reszta < 50)
-            zaokraglonaY = setki + 25;
-        else if (reszta < 75)
-            zaokraglonaY = setki + 50;
-        else
-            zaokraglonaY = setki + 75;
-    
+        float centreX = zaokraglona(top.getCenterPosition().x);
+        float centreY = zaokraglona(top.getCenterPosition().y);
 
+        float quaterX = zaokraglona((top.getCenterPosition().x) / 2);
+        float quaterY = zaokraglona((top.getCenterPosition().y) / 2); 
 
-    Obstacle poziom2(zaokraglonaX, zaokraglonaY, thickness, 2*zaokraglonaY, 'h');
+    Obstacle poziom2(centreX, centreY, thickness, 2*centreY, 'h');
 
-    Obstacle poziom3_1(zaokraglonaX - 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
-    Obstacle poziom3_2(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
+    Obstacle poziom3_1(centreX - 13 * thickness, centreY, thickness,  centreY, 'v');
+    Obstacle poziom3_2(centreX + 13 * thickness, centreY, thickness,  centreY, 'v');
 
-    Obstacle poziom4_1();
-    Obstacle poziom4_2();
-    Obstacle poziom4_3();
-    Obstacle poziom4_4();
+    Obstacle poziom4_1(quaterX, 2*thickness, thickness, centreY-5*thickness, 'd');
+    Obstacle poziom4_2(thickness, 3*quaterY, thickness, centreX-5*thickness, 'r');
+    Obstacle poziom4_3(3*quaterX, getWindowHeight() - (2 * thickness), thickness, centreY - 5 * thickness, 'u');
+    Obstacle poziom4_4(getWindowWidth()-2*thickness, quaterY, thickness, centreX - 5 * thickness, 'l');
 
-    Obstacle poziom5_1(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
-    Obstacle poziom5_2(zaokraglonaX - 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
-    Obstacle poziom5_3(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'h');
-    Obstacle poziom5_4(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'h');
+    Obstacle poziom5_1(3*quaterX, centreY, thickness, centreY-2*thickness, 'v');
+    Obstacle poziom5_2(quaterX, centreY, thickness, centreY-2*thickness, 'v');
+    Obstacle poziom5_3(centreX , quaterY, thickness,  centreX - 4 * thickness, 'h');
+    Obstacle poziom5_4(centreX + thickness, 3* quaterY, thickness, centreX - 4 * thickness, 'h');
 
 
 
@@ -175,10 +166,10 @@ void Game::gameStart() {
             }
             else if (level == 4) {
                 obstacles.clear();
-                /*obstacles.push_back(poziom4_1);
+                obstacles.push_back(poziom4_1);
                 obstacles.push_back(poziom4_2);
                 obstacles.push_back(poziom4_3);
-                obstacles.push_back(poziom4_4);*/
+                obstacles.push_back(poziom4_4);
                 levelChangeFlag == 0;
             }
             else if (level == 5) {
