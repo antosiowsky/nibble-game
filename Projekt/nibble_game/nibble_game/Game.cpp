@@ -125,7 +125,7 @@ void Game::gameStart() {
         //point//
 
     Point point(thickness, getWindowWidth(), getWindowHeight(), snake);
-    point.generatePoint(thickness, getWindowWidth(), getWindowHeight(), snake);
+    point.generatePoint(thickness, getWindowWidth(), getWindowHeight(), snake, obstacles);
 
     
     //////////////
@@ -202,7 +202,7 @@ void Game::gameStart() {
                 rightKeyPressed = false;
         }
 
-        if (point.checkCollision(snake)) {
+        if (point.checkCollision(snake, obstacles)) {
             std::cout << "zebrano";
             score += 1000*scoreMultiplier;
 

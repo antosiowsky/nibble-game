@@ -8,14 +8,13 @@ Point::Point(float thickness, float frameWidth, float frameHeight, const Snake& 
     shape.setFont(font);
 }
 
-bool Point::checkCollision(const Snake& snake) {
+bool Point::checkCollision(const Snake& snake, const std::vector<Obstacle>& obstacles) {
     sf::FloatRect pointBounds = shape.getGlobalBounds();
     for (const auto& segment : snake.getSegments()) {
         sf::FloatRect segmentBounds = segment.getGlobalBounds();
         if (pointBounds.intersects(segmentBounds)) {
             value++;
-            generatePoint(thickness, this->x, this->y, snake);
-            std::cout << thickness << std::endl;
+            generatePoint(thickness, this->x, this->y, snake, obstacles);
             return true;
         }
     }
@@ -26,7 +25,7 @@ void Point::draw(sf::RenderWindow& window) const {
     window.draw(shape);
 }
 
-void Point::generatePoint(float thickness, float frameWidth, float frameHeight, const Snake& snake) {
+void Point::generatePoint(float thickness, float frameWidth, float frameHeight, const Snake& snake, const std::vector<Obstacle>& obstacles) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> disX(2, (int)((frameWidth - 4 * thickness) / thickness)); // Zmiana zakresu dla X
@@ -46,6 +45,12 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
                 break;
             }
         }
+        for (const auto& obstacle : obstacles) {
+            if (obstacle.checkCollision(position)) {
+                validPosition = false;
+                break;
+            }
+        }
     }
     
     if (i == 58) i = 49;
@@ -58,4 +63,3 @@ void Point::generatePoint(float thickness, float frameWidth, float frameHeight, 
     shape.setString(i); // Ustawienie tekstu na "1"
     i++;
 }
-
