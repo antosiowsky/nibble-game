@@ -86,7 +86,7 @@ void Game::gameStart() {
     else
         zaokraglona = setki + 75;*/
 
-    Obstacle wall1(centreX, centreY , thickness, 600.0, 'h');
+    Obstacle wall1(225, 225, thickness, 600.0, 'r');
     std::vector<Obstacle> obstacles;
     obstacles.push_back(wall1);
     //snake//

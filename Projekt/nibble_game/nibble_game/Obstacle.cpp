@@ -56,14 +56,14 @@ bool Obstacle::checkCollision(sf::Vector2f head) const {
     case 'v': // vertical
         if (head.x > x - thickness / 2 &&
             head.x < x + thickness - thickness / 2 &&
-            head.y > y - length / 2 - thickness / 2 &&
-            head.y < y + length / 2 + thickness / 2) {
+            head.y > y - length / 2 &&
+            head.y < y + length / 2) {
             return true;
         }
         break;
     case 'h': // horizontal
-        if (head.x > x - length / 2 - thickness / 2 &&
-            head.x < x + length / 2 + thickness / 2 &&
+        if (head.x > x - length / 2 &&
+            head.x < x + length / 2 &&
             head.y > y - thickness / 2 &&
             head.y < y + thickness - thickness / 2) {
             return true;
