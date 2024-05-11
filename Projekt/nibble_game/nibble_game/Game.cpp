@@ -68,43 +68,40 @@ void Game::gameStart() {
 
 
     //Obstacles//
-    float centreX = top.getCenterPosition().x;
+    
+        float centreX = top.getCenterPosition().x;
+        float centreY = top.getCenterPosition().y;
+        int liczba = centreX;
+        float zaokraglonaX;
+        int reszta = liczba % 100;
+        int setki = liczba / 100 * 100;
+        if (reszta < 25)
+            zaokraglonaX = setki;
+        else if (reszta < 50)
+            zaokraglonaX = setki + 25;
+        else if (reszta < 75)
+            zaokraglonaX = setki + 50;
+        else
+            zaokraglonaX = setki + 75;
+        int liczbaY = centreY;
+        float zaokraglonaY;
+        reszta = liczbaY % 100;
+        setki = liczbaY / 100 * 100;
+        if (reszta < 25)
+            zaokraglonaY = setki;
+        else if (reszta < 50)
+            zaokraglonaY = setki + 25;
+        else if (reszta < 75)
+            zaokraglonaY = setki + 50;
+        else
+            zaokraglonaY = setki + 75;
+    
 
-    float centreY = top.getCenterPosition().y; 
-    int liczba = centreX;
-    float zaokraglonaX;
 
-    int reszta = liczba % 100;
-    int setki = liczba / 100 * 100;
+    Obstacle poziom1(zaokraglonaX, zaokraglonaY, thickness, 2*zaokraglonaY, 'h');
 
-    if (reszta < 25)
-        zaokraglonaX = setki;
-    else if (reszta < 50)
-        zaokraglonaX = setki + 25;
-    else if (reszta < 75)
-        zaokraglonaX = setki + 50;
-    else
-        zaokraglonaX = setki + 75;
-
-    int liczbaY = centreY;
-    float zaokraglonaY;
-
-     reszta = liczbaY % 100;
-     setki = liczbaY / 100 * 100;
-
-    if (reszta < 25)
-        zaokraglonaY = setki;
-    else if (reszta < 50)
-        zaokraglonaY = setki + 25;
-    else if (reszta < 75)
-        zaokraglonaY = setki + 50;
-    else
-        zaokraglonaY = setki + 75;
-
-    std::cout << zaokraglonaX << " " << zaokraglonaY << std::endl;
-    Obstacle wall1(zaokraglonaX, zaokraglonaY, thickness, 200.0, 'v');
     std::vector<Obstacle> obstacles;
-    obstacles.push_back(wall1);
+    obstacles.push_back(poziom1);
     //snake//
 
     char dir = 'r';
@@ -260,7 +257,7 @@ void Game::gameStart() {
         point.draw(window);
 		/////////////////
 
-        wall1.draw(window);
+        poziom1.draw(window);
 
 
         window.display();
