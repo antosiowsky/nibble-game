@@ -10,15 +10,13 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
 //to do
     //  
     //
-    // add levels
+    // add proper spawn at each level
     // add graphic scoreboard
     // add grapic menu
     // 
     // ustawic obstacles w dobrych kratkach 
     // 
-    // 
-    // zrobic zeby waz respil sie o takiej dlugosci jaki jest
-    // obecnie punkt!
+    //
     // 
     // na module wystarczy tylko 2 klasy zrobic
     // 
@@ -45,7 +43,7 @@ void Game::gameStart() {
     
    
     bool colisionFlag = 0;
-    bool levelChangeFlag = 1;
+    bool levelChangeFlag = 0;
     float windowHeight = 1600;
     float windowWidth = 900;
 
@@ -66,10 +64,6 @@ void Game::gameStart() {
     text.setCharacterSize(1.5*thickness);
     text.setFillColor(sf::Color::White);
 
-    
-   /* text.setString("SAMMY --> lives: 5    0000");
-    sf::FloatRect textBounds = text.getLocalBounds();
-    text.setPosition(window.getSize().x - textBounds.width - thickness/5, thickness/5);*/
 
     std::stringstream ss;
 
@@ -90,6 +84,9 @@ void Game::gameStart() {
         float quaterX = zaokraglona((top.getCenterPosition().x) / 2);
         float quaterY = zaokraglona((top.getCenterPosition().y) / 2); 
 
+        float oneEightX = zaokraglona((top.getCenterPosition().x) / 4);
+        float oneEightY = zaokraglona((top.getCenterPosition().y) / 4);
+
     Obstacle poziom2(centreX, centreY, thickness, 2*centreY, 'h');
 
     Obstacle poziom3_1(centreX - 13 * thickness, centreY, thickness,  centreY, 'v');
@@ -105,7 +102,22 @@ void Game::gameStart() {
     Obstacle poziom5_3(centreX , quaterY, thickness,  centreX - 4 * thickness, 'h');
     Obstacle poziom5_4(centreX + thickness, 3* quaterY, thickness, centreX - 4 * thickness, 'h');
 
+    Obstacle poziom6_1(oneEightX, 2 * thickness, thickness, quaterY+oneEightY , 'd');
+    Obstacle poziom6_2(quaterX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
+    Obstacle poziom6_3(quaterX + oneEightX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
+    Obstacle poziom6_4(centreX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
+    Obstacle poziom6_5(centreX + oneEightX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
+    Obstacle poziom6_6(centreX + quaterX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
+    Obstacle poziom6_7(centreX + quaterX + oneEightX, 2 * thickness, thickness, quaterY + oneEightY, 'd');
 
+    Obstacle poziom6_8(oneEightX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_9(quaterX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_10(quaterX+oneEightX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_11(centreX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_12(centreX + oneEightX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_13(centreX + quaterX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    Obstacle poziom6_14(centreX + quaterX + oneEightX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
+    
 
     std::vector<Obstacle> obstacles;
     //obstacles.push_back(poziom2);
@@ -180,14 +192,25 @@ void Game::gameStart() {
                 obstacles.push_back(poziom5_4);
                 levelChangeFlag == 0;
             }
-            /*else if (level == 6) {
+            else if (level == 6) {
                 obstacles.clear();
-                obstacles.push_back(poziom4_1);
-                obstacles.push_back(poziom4_2);
-                obstacles.push_back(poziom4_3);
-                obstacles.push_back(poziom4_4);
+                obstacles.push_back(poziom6_1);
+                obstacles.push_back(poziom6_2);
+                obstacles.push_back(poziom6_3);
+                obstacles.push_back(poziom6_4);
+                obstacles.push_back(poziom6_5);
+                obstacles.push_back(poziom6_6);
+                obstacles.push_back(poziom6_7);
+
+                obstacles.push_back(poziom6_8);
+                obstacles.push_back(poziom6_9);
+                obstacles.push_back(poziom6_10);
+                obstacles.push_back(poziom6_11);
+                obstacles.push_back(poziom6_12);
+                obstacles.push_back(poziom6_13);
+                obstacles.push_back(poziom6_14);
                 levelChangeFlag == 0;
-            }
+            }/*
             else if (level == 7) {
                 obstacles.clear();
                 obstacles.push_back(poziom2);
@@ -262,6 +285,8 @@ void Game::gameStart() {
                 scoreMultiplier = 1;
                 level++;
                 levelChangeFlag = 1;
+                snake.resetSnake();
+                snake.grow();
             }
         }
 
@@ -275,9 +300,7 @@ void Game::gameStart() {
             sf::sleep(sf::seconds(0.5));
             lives--;
             score -= 1000;
-            int snakeLength = 3 + 2 * (scoreMultiplier - 1);
-            for (int i = 0; i < snakeLength; i++)
-                snake.grow();
+            snake.grow();
             dir = 'r';
             point.resetValue();
             point.generatePoint(thickness, getWindowWidth(), getWindowHeight(), snake, obstacles);

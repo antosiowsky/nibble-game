@@ -7,7 +7,6 @@ Snake::Snake(float x, float y, float thickness, float windowWidth, float windowH
     segment.setPosition(x, y);
     segments.push_front(segment);
     segments.push_front(segment);
-    segments.push_front(segment);
 }
 
 
@@ -103,7 +102,7 @@ const std::list<sf::RectangleShape>& Snake::getSegments() const {
 void Snake::resetSnake() {
     // Usuwamy wszystkie segmenty wê¿a oprócz g³owy
     segments.erase(std::next(segments.begin()), segments.end());
-
+    
     segments.front().setPosition(x, y);
 
     // Ustawiamy kierunek ruchu na domyœlny ('r')
