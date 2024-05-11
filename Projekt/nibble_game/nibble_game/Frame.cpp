@@ -27,3 +27,7 @@ void Frame::draw(sf::RenderWindow& window) const {
     window.draw(left);
     window.draw(right);
 }
+
+sf::Vector2f Frame::getCenterPosition() const {
+    return sf::Vector2f(thickness + (x - 2 * thickness) / 2, 2 * thickness + (y - 3 * thickness) / 2);
+}

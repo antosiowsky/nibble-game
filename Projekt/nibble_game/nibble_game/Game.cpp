@@ -32,8 +32,8 @@ void Game::gameStart() {
     
 
     bool colisionFlag = 0;
-  float windowHeight = 1600;
-  float windowWidth = 900;
+    float windowHeight = 1600;
+    float windowWidth = 900;
     float thickness = 25;
     std::cout<<getWindowHeight() << std::endl; 
 
@@ -68,8 +68,25 @@ void Game::gameStart() {
 
 
     //Obstacles//
+    float centreX = top.getCenterPosition().x;
 
-    Obstacle wall1(233, 233, thickness, 600.0, 'r');
+    float centreY = top.getCenterPosition().y; 
+    /*int liczba = windowHeight;
+    float zaokraglona;
+
+    int reszta = liczba % 100;
+    int setki = liczba / 100 * 100;
+
+    if (reszta < 25)
+        zaokraglona = setki;
+    else if (reszta < 50)
+        zaokraglona = setki + 25;
+    else if (reszta < 75)
+        zaokraglona = setki + 50;
+    else
+        zaokraglona = setki + 75;*/
+
+    Obstacle wall1(centreX, centreY , thickness, 600.0, 'h');
     std::vector<Obstacle> obstacles;
     obstacles.push_back(wall1);
     //snake//
@@ -186,10 +203,8 @@ void Game::gameStart() {
             
         }
 
-        if (snake.checkCollisionWithObstacles(obstacles))
-            std::cout << "collision with wall1";
-
-        if (snake.checkCollision() == true && roundTime > 0.5) {
+       
+        if ((snake.checkCollision() == true && roundTime > 0.5)|| snake.checkCollisionWithObstacles(obstacles)) {
             std::cout << "uderzenie";
 
             colisionFlag = 1;
