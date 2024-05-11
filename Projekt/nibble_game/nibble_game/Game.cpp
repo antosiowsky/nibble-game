@@ -32,6 +32,7 @@ void Game::gameStart() {
     
 
     bool colisionFlag = 0;
+    bool levelChangeFlag = 0;
     float windowHeight = 1600;
     float windowWidth = 900;
     float thickness = 25;
@@ -98,10 +99,25 @@ void Game::gameStart() {
     
 
 
-    Obstacle poziom1(zaokraglonaX, zaokraglonaY, thickness, 2*zaokraglonaY, 'h');
+    Obstacle poziom2(zaokraglonaX, zaokraglonaY, thickness, 2*zaokraglonaY, 'h');
+
+    Obstacle poziom3_1(zaokraglonaX - 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
+    Obstacle poziom3_2(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
+
+    Obstacle poziom4_1();
+    Obstacle poziom4_2();
+    Obstacle poziom4_3();
+    Obstacle poziom4_4();
+
+    Obstacle poziom5_1(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
+    Obstacle poziom5_2(zaokraglonaX - 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'v');
+    Obstacle poziom5_3(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'h');
+    Obstacle poziom5_4(zaokraglonaX + 5 * thickness, zaokraglonaY, thickness, 2 * zaokraglonaY, 'h');
+
+
 
     std::vector<Obstacle> obstacles;
-    obstacles.push_back(poziom1);
+    //obstacles.push_back(poziom2);
     //snake//
 
     char dir = 'r';
@@ -145,8 +161,48 @@ void Game::gameStart() {
 				window.close();
 			}
         }
-
-
+        if (levelChangeFlag==1) {
+            if (level == 2) {
+                obstacles.clear();
+                obstacles.push_back(poziom2);
+                levelChangeFlag == 0;
+            }
+            else if (level == 3) {
+                obstacles.clear();
+                obstacles.push_back(poziom3_1);
+                obstacles.push_back(poziom3_2);
+                levelChangeFlag == 0;
+            }
+            else if (level == 4) {
+                obstacles.clear();
+                /*obstacles.push_back(poziom4_1);
+                obstacles.push_back(poziom4_2);
+                obstacles.push_back(poziom4_3);
+                obstacles.push_back(poziom4_4);*/
+                levelChangeFlag == 0;
+            }
+            else if (level == 5) {
+                obstacles.clear();
+                obstacles.push_back(poziom5_1);
+                obstacles.push_back(poziom5_2);
+                obstacles.push_back(poziom5_3);
+                obstacles.push_back(poziom5_4);
+                levelChangeFlag == 0;
+            }
+            /*else if (level == 6) {
+                obstacles.clear();
+                obstacles.push_back(poziom4_1);
+                obstacles.push_back(poziom4_2);
+                obstacles.push_back(poziom4_3);
+                obstacles.push_back(poziom4_4);
+                levelChangeFlag == 0;
+            }
+            else if (level == 7) {
+                obstacles.clear();
+                obstacles.push_back(poziom2);
+                levelChangeFlag == 0;
+            }*/
+        }
         if (directionQueue.size() <= 1)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !upKeyPressed && dir != 'd' && (directionQueue.empty() || directionQueue.back() != '1'))
@@ -211,9 +267,11 @@ void Game::gameStart() {
                 snake.grow();
 
             scoreMultiplier++;
-            if (scoreMultiplier == 10)
+            if (scoreMultiplier == 10) {
                 scoreMultiplier = 1;
-            
+                level++;
+                levelChangeFlag = 1;
+            }
         }
 
        
@@ -236,7 +294,7 @@ void Game::gameStart() {
         // Draw text //
 
         ss.str("");
-        ss<< "SAMMY --> lives: " << lives << "     " << score;
+        ss<< "LEVEL: "<< level << " SAMMY --> lives: " << lives << "     " << score;
         text.setString(ss.str());
         sf::FloatRect textBounds = text.getLocalBounds();
         text.setPosition(window.getSize().x - textBounds.width - thickness / 5, thickness / 5);
@@ -257,7 +315,9 @@ void Game::gameStart() {
         point.draw(window);
 		/////////////////
 
-        poziom1.draw(window);
+
+        for(auto o : obstacles) //TEST
+        o.draw(window);
 
 
         window.display();
