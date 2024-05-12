@@ -14,7 +14,7 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     // add graphic scoreboard
     // add grapic menu
     // 
-    // ustawic obstacles w dobrych kratkach 
+    // BUG: przy next level odejmuje siê lives o 1
     // 
     //
     // 

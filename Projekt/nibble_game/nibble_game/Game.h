@@ -20,7 +20,7 @@ class Game
 public:
 	Game(int game_speed, float windowWidth, float windowHeight);
 	int score = 0;
-	int lives = 5;
+	int lives = 15;
 	int scoreMultiplier = 1;
 	int level = 1;
 	int game_speed;
