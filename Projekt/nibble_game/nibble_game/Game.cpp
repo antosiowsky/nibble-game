@@ -129,7 +129,7 @@ void Game::gameStart() {
     float sped = (1.0 / game_speed);
 
 
-    Snake snake(300, 300, thickness, getWindowWidth(), getWindowHeight()); // Example parameters
+    Snake snake(centreX, centreY-2*thickness, thickness, getWindowWidth(), getWindowHeight()); // Example parameters
     std::queue<char> directionQueue;
     sf::Clock clock;
     float deltaTime = 0.0f;
@@ -170,17 +170,43 @@ void Game::gameStart() {
             if (level == 2) {
                 obstacles.clear();
                 obstacles.push_back(poziom2);
-                levelChangeFlag == 0;
-                sf::sleep(sf::seconds(0.5));
-                std::cout << j << " " << levelChangeFlag <<  std::endl;
-                j++;
+                levelChangeFlag = 0;
+
+                window.clear(sf::Color::Blue);
+                top.draw(window);
+                snake.draw(window);
+                window.draw(text);
+                point.draw(window);
+
+                for (auto o : obstacles)
+                    o.draw(window);
+
+
+                window.display();
+                dir = 'r';
+                sf::sleep(sf::seconds(1));
+                
                 
             }
             else if (level == 3) {
                 obstacles.clear();
                 obstacles.push_back(poziom3_1);
                 obstacles.push_back(poziom3_2);
-                levelChangeFlag == 0;
+                levelChangeFlag = 0;
+
+                window.clear(sf::Color::Blue);
+                top.draw(window);
+                snake.draw(window);
+                window.draw(text);
+                point.draw(window);
+
+                for (auto o : obstacles)
+                    o.draw(window);
+
+
+                window.display();
+                dir = 'u';
+                sf::sleep(sf::seconds(1));
             }
             else if (level == 4) {
                 obstacles.clear();
@@ -188,7 +214,20 @@ void Game::gameStart() {
                 obstacles.push_back(poziom4_2);
                 obstacles.push_back(poziom4_3);
                 obstacles.push_back(poziom4_4);
-                levelChangeFlag == 0;
+                levelChangeFlag = 0;
+
+                window.clear(sf::Color::Blue);
+                top.draw(window);
+                snake.draw(window);
+                window.draw(text);
+                point.draw(window);
+
+                for (auto o : obstacles)
+                    o.draw(window);
+                window.display();
+                dir = 'r';
+                sf::sleep(sf::seconds(1));
+            
             }
             else if (level == 5) {
                 obstacles.clear();
@@ -196,7 +235,21 @@ void Game::gameStart() {
                 obstacles.push_back(poziom5_2);
                 obstacles.push_back(poziom5_3);
                 obstacles.push_back(poziom5_4);
-                levelChangeFlag == 0;
+                levelChangeFlag = 0;
+
+                window.clear(sf::Color::Blue);
+                top.draw(window);
+                snake.draw(window);
+                window.draw(text);
+                point.draw(window);
+
+                for (auto o : obstacles)
+                    o.draw(window);
+
+
+                window.display();
+                dir = 'r';
+                sf::sleep(sf::seconds(1));
             }
             else if (level == 6) {
                 obstacles.clear();
@@ -215,12 +268,26 @@ void Game::gameStart() {
                 obstacles.push_back(poziom6_12);
                 obstacles.push_back(poziom6_13);
                 obstacles.push_back(poziom6_14);
-                levelChangeFlag == 0;
+                levelChangeFlag = 0;
+
+                window.clear(sf::Color::Blue);
+                top.draw(window);
+                snake.draw(window);
+                window.draw(text);
+                point.draw(window);
+
+                for (auto o : obstacles)
+                    o.draw(window);
+
+
+                window.display();
+                dir = 'r';
+                sf::sleep(sf::seconds(1));
             }/*
             else if (level == 7) {
                 obstacles.clear();
                 obstacles.push_back(poziom2);
-                levelChangeFlag == 0;
+                levelChangeFlag = 0;
             }*/
         }
         if (directionQueue.size() <= 1)
