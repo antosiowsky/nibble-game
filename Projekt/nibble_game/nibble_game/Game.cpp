@@ -51,12 +51,70 @@ void Game::gameStart() {
 
     std::cout << getWindowWidth() << std::endl;
 
-    sf::RenderWindow window(sf::VideoMode(getWindowWidth() ,getWindowHeight() ), "Snake Game");
+    
 
-    Menu menu(1600, 900);
-    menu.draw(window);
+    sf::RenderWindow windowM(sf::VideoMode(800, 600), "Menu");
 
-    sf::sleep(sf::seconds(10));
+    Menu menu(windowM, 800, 600);
+
+    while (windowM.isOpen()) {
+        sf::Event event;
+        while (windowM.pollEvent(event)) {
+            switch (event.type) {
+            case sf::Event::KeyPressed:
+                switch (event.key.code) {
+                case sf::Keyboard::Up:
+                    menu.MoveUp();
+                    break;
+                case sf::Keyboard::Down:
+                    menu.MoveDown();
+                    break;
+                case sf::Keyboard::Left:
+                    menu.DecreaseValue();
+                    break;
+                case sf::Keyboard::Right:
+                    menu.IncreaseValue();
+                    break;
+                case sf::Keyboard::Return:
+                    switch (menu.GetPressedItem()) {
+                    case 0:
+                        std::cout << "Start Game selected" << std::endl;
+                        windowM.close();
+                        break;
+                    case 1:
+                        std::cout << "Game Speed: " << menu.GetGameSpeed() << std::endl;
+                        break;
+                    case 2:
+                        std::cout << "Lives: " << menu.GetLives() << std::endl;
+                        break;
+                    case 3:
+                        std::cout << "Exit Game selected" << std::endl;
+                        windowM.close();
+                        exit(0);
+                        break;
+                    }
+                    break;
+                default:
+                    break;
+                }
+                break;
+            case sf::Event::Closed:
+                windowM.close();
+                exit(0);
+                break;
+            default:
+                break;
+            }
+        }
+
+        menu.draw();
+    }
+
+    game_speed = menu.GetGameSpeed();
+    lives = menu.GetLives();
+
+    sf::RenderWindow window(sf::VideoMode(getWindowWidth(), getWindowHeight()), "Snake Game");
+    //sf::sleep(sf::seconds(10));
     
     //text//
 

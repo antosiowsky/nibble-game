@@ -1,60 +1,94 @@
 #include "Menu.h"
 
+Menu::Menu(sf::RenderWindow& window, int width, int height)
+    : window(window), selectedItemIndex(0), lives(1), gameSpeed(1) {
+    if (!font.loadFromFile("minecraft.ttf")) {
+        std::cerr << "Error loading font file" << std::endl;
+    }
 
-Menu::Menu(float width, float height)
-{
-	if (!font.loadFromFile("minecraft.ttf"))
-	{
-		// handle error
-	}
+    for (int i = 0; i < 4; i++) {
+        menu[i].setFont(font);
+        menu[i].setFillColor(sf::Color::White);
+        menu[i].setString(options[i]);
+        menu[i].setPosition(sf::Vector2f(width / 2, height / 4 + i * 50));
+    }
 
-	menu[0].setFont(font);
-	menu[0].setFillColor(sf::Color::Red);
-	menu[0].setString("Play");
-	menu[0].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
+    gameSpeedText.setFont(font);
+    gameSpeedText.setFillColor(sf::Color::White);
+    gameSpeedText.setPosition(sf::Vector2f(width / 2 + 200, height / 4 + 50));
+    updateGameSpeedText();
 
-	menu[1].setFont(font);
-	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("Options");
-	menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
+    livesText.setFont(font);
+    livesText.setFillColor(sf::Color::White);
+    livesText.setPosition(sf::Vector2f(width / 2 + 200, height / 4 + 100));
+    updateLivesText();
 
-	menu[2].setFont(font);
-	menu[2].setFillColor(sf::Color::White);
-	menu[2].setString("Exit");
-	menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
-
-	selectedItemIndex = 0;
+   
 }
 
+void Menu::draw() {
+    window.clear();
 
-Menu::~Menu()
-{
+    for (int i = 0; i < 4; i++) {
+        window.draw(menu[i]);
+    }
+
+    window.draw(livesText);
+    window.draw(gameSpeedText);
+
+    window.display();
 }
 
-void Menu::draw(sf::RenderWindow& window)
-{
-	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
-	{
-		window.draw(menu[i]);
-	}
+void Menu::MoveUp() {
+    if (selectedItemIndex > 0) {
+        menu[selectedItemIndex].setFillColor(sf::Color::White);
+        selectedItemIndex--;
+        menu[selectedItemIndex].setFillColor(sf::Color::Red);
+    }
 }
 
-void Menu::MoveUp()
-{
-	if (selectedItemIndex - 1 >= 0)
-	{
-		menu[selectedItemIndex].setFillColor(sf::Color::White);
-		selectedItemIndex--;
-		menu[selectedItemIndex].setFillColor(sf::Color::Red);
-	}
+void Menu::MoveDown() {
+    if (selectedItemIndex < 3) {
+        menu[selectedItemIndex].setFillColor(sf::Color::White);
+        selectedItemIndex++;
+        menu[selectedItemIndex].setFillColor(sf::Color::Red);
+    }
 }
 
-void Menu::MoveDown()
-{
-	if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
-	{
-		menu[selectedItemIndex].setFillColor(sf::Color::White);
-		selectedItemIndex++;
-		menu[selectedItemIndex].setFillColor(sf::Color::Red);
-	}
+void Menu::IncreaseValue() {
+    if (selectedItemIndex == 1) {
+        if (gameSpeed < 30) {
+            gameSpeed++;
+            updateGameSpeedText();
+        }
+    }
+    else if (selectedItemIndex == 2) {
+        if (lives < 15) {
+            lives++;
+            updateLivesText();
+        }
+    }
+}
+
+void Menu::DecreaseValue() {
+    if (selectedItemIndex == 1) {
+        if (gameSpeed > 1) {
+            gameSpeed--;
+            updateGameSpeedText();
+        }
+    }
+    else if (selectedItemIndex == 2) {
+        if (lives > 1) {
+            lives--;
+            updateLivesText();
+        }
+    }
+}
+
+void Menu::updateLivesText() {
+    livesText.setString(std::to_string(lives));
+}
+
+void Menu::updateGameSpeedText() {
+    gameSpeedText.setString(std::to_string(gameSpeed));
 }
