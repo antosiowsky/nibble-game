@@ -12,7 +12,7 @@
 #include "Frame.h"
 #include "Snake.h"
 #include "Point.h"
-
+#include "Menu.h"
 #include <SFML/Graphics.hpp>
 
 class Game

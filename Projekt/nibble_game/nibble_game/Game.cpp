@@ -8,9 +8,6 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     game_speed(game_speed) , windowWidth(windowWidth), windowHeight(windowHeight){};
 
 //to do
-    //  
-    //
-    // add proper spawn and freeze at each level
     // add graphic scoreboard
     // add grapic menu
     // 
@@ -41,6 +38,7 @@ float zaokraglona(float value) {
 void Game::gameStart() {
     
    
+
     bool colisionFlag = 0;
     bool levelChangeFlag = 0;
     float windowHeight = 1600;
@@ -55,6 +53,11 @@ void Game::gameStart() {
 
     sf::RenderWindow window(sf::VideoMode(getWindowWidth() ,getWindowHeight() ), "Snake Game");
 
+    Menu menu(1600, 900);
+    menu.draw(window);
+
+    sf::sleep(sf::seconds(10));
+    
     //text//
 
     sf::Font font;

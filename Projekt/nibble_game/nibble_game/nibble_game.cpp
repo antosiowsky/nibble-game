@@ -4,6 +4,7 @@
 #include "game.h"
 #include <iostream>
 #include <queue>
+#include "menu.h"
 
 
 int main() {
@@ -13,9 +14,11 @@ int main() {
     //1600x900
     Game gra(16,1600,900); // 1 to 50 skill level , windowWidth, widnowHeight
 
+    
+
     gra.gameStart();
 
-    gra.gameEnd();
+    //gra.gameEnd();
     
     std::cout << "leaderboards"; 
     return 0;
