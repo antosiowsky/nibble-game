@@ -10,11 +10,10 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
 //to do
     //  
     //
-    // add proper spawn at each level
+    // add proper spawn and freeze at each level
     // add graphic scoreboard
     // add grapic menu
     // 
-    // BUG: przy next level odejmuje siê lives o 1
     // 
     //
     // 
@@ -120,7 +119,7 @@ void Game::gameStart() {
     
 
     std::vector<Obstacle> obstacles;
-    //obstacles.push_back(poziom2);
+    
     //snake//
 
     char dir = 'r';
@@ -165,10 +164,12 @@ void Game::gameStart() {
 			}
         }
         if (levelChangeFlag==1) {
+            
             if (level == 2) {
                 obstacles.clear();
                 obstacles.push_back(poziom2);
                 levelChangeFlag == 0;
+                
             }
             else if (level == 3) {
                 obstacles.clear();
@@ -285,6 +286,7 @@ void Game::gameStart() {
                 scoreMultiplier = 1;
                 level++;
                 levelChangeFlag = 1;
+                roundTime = 0.0f;
                 snake.resetSnake();
                 snake.grow();
             }
@@ -295,7 +297,7 @@ void Game::gameStart() {
             std::cout << "uderzenie";
 
             colisionFlag = 1;
-
+           // std::cout << snake.checkCollision() << "obstacle?: " << 
             snake.resetSnake();
             sf::sleep(sf::seconds(0.5));
             lives--;

@@ -105,6 +105,7 @@ void Snake::resetSnake() {
     
     segments.front().setPosition(x, y);
 
+    
     // Ustawiamy kierunek ruchu na domyœlny ('r')
 }
 
