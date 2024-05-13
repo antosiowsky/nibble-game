@@ -40,6 +40,5 @@ public:
 	float getWindowHeight() const { return windowHeight; }
 
 	friend class Snake;
-	//Game() = default;// nie wiem co to 
 };
 

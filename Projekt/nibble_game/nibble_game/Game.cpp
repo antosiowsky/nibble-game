@@ -8,12 +8,7 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     game_speed(game_speed) , windowWidth(windowWidth), windowHeight(windowHeight){};
 
 //to do
-    // add graphic scoreboard
-    // add grapic menu
-    // 
-    // 
-    //
-    // 
+
     // na module wystarczy tylko 2 klasy zrobic
     // 
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
@@ -36,10 +31,7 @@ float zaokraglona(float value) {
 }
 
 void Game::gameStart() {
-    
-   
 
-    bool colisionFlag = 0;
     bool levelChangeFlag = 0;
     float windowHeight = 1600;
     float windowWidth = 900;
@@ -429,10 +421,7 @@ void Game::gameStart() {
 
        
         if ((snake.checkCollision() == true && roundTime > 0.5)|| snake.checkCollisionWithObstacles(obstacles)) {
-            std::cout << "uderzenie";
 
-            colisionFlag = 1;
-           // std::cout << snake.checkCollision() << "obstacle?: " << 
             snake.resetSnake();
             sf::sleep(sf::seconds(0.5));
             lives--;
@@ -444,7 +433,6 @@ void Game::gameStart() {
             scoreMultiplier = 1;
         }
            
-        //std::cout << roundTime;
         // Draw text //
 
         ss.str("");
@@ -479,19 +467,11 @@ void Game::gameStart() {
 }
 
 
-
 void Game::gameEnd() {
+    // Tworzenie nowego okna SFML
+    sf::RenderWindow window(sf::VideoMode(400, 300), "Hall of Fame");
 
-   /* sf::Music music;
-    if (!music.openFromFile("champions.ogg")) {
-        std::cerr << "Error: Unable to load music." << std::endl;
-        return;
-    }
-    music.play();*/
-
-
-
-   // Sprawdzanie i tworzenie pliku leaderboards.txt
+    // Sprawdzanie i tworzenie pliku leaderboards.txt
     fs::path currentPath = fs::current_path();
     fs::path leaderboardFilePath = currentPath / "leaderboards.txt";
 
@@ -540,11 +520,38 @@ void Game::gameEnd() {
     }
     file.close();
 
-    // Wyœwietlanie posortowanych wyników
-    std::cout << "Leaderboard:" << std::endl;
-    for (const auto& entry : leaderboardData) {
-        std::cout << std::get<0>(entry) << " " << std::get<1>(entry) << " - " << std::get<2>(entry) << std::endl;
+    // Rysowanie posortowanych wyników na nowym oknie SFML
+    sf::Font font;
+    if (!font.loadFromFile("minecraft.ttf")) {
+        std::cout << "FONT LOAD FALITURE";
     }
 
+    sf::Text text;
+    text.setFont(font);
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
 
+    // Ustawienie tekstu "Hall of Fame"
+    text.setString("Hall of Fame");
+    text.setPosition(80.f, 10.f);
+    window.draw(text);
+
+    // Ustawienie pozycji wyników
+    for (int i = 0; i < 10 && i < leaderboardData.size(); ++i) {
+        text.setString(std::get<0>(leaderboardData[i]) + " " + std::get<1>(leaderboardData[i]) + " - " + std::to_string(std::get<2>(leaderboardData[i])));
+        text.setPosition(10.f, 50.f + 30.f * i);
+        window.draw(text);
+    }
+
+    window.display();
+
+    // Pêtla g³ówna okna SFML
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+    }
 }
