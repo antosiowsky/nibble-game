@@ -47,6 +47,8 @@ void Game::gameStart() {
     float windowWidth = 900;
 
     float thickness = 25;
+
+
     std::cout<<getWindowHeight() << std::endl; 
 
     std::cout << getWindowWidth() << std::endl;
@@ -148,7 +150,7 @@ void Game::gameStart() {
     
     //////////////
 
-
+    int j = 1;
     while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
         moveTimer += deltaTime;
@@ -169,6 +171,9 @@ void Game::gameStart() {
                 obstacles.clear();
                 obstacles.push_back(poziom2);
                 levelChangeFlag == 0;
+                sf::sleep(sf::seconds(0.5));
+                std::cout << j << " " << levelChangeFlag <<  std::endl;
+                j++;
                 
             }
             else if (level == 3) {
@@ -289,6 +294,8 @@ void Game::gameStart() {
                 roundTime = 0.0f;
                 snake.resetSnake();
                 snake.grow();
+                sf::sleep(sf::seconds(0.5));
+                
             }
         }
 
