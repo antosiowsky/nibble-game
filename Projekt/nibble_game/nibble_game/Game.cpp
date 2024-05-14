@@ -14,9 +14,14 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
 
-float zaokraglona(float value) {
+
+template<typename T>
+concept FloatingPoint = std::is_floating_point_v<T>;
+
+template<FloatingPoint T>
+T zaokraglona(T value) {
     int liczba = static_cast<int>(value);
-    float zaokraglona;
+    T zaokraglona;
     int reszta = liczba % 100;
     int setki = liczba / 100 * 100;
     if (reszta < 25)
@@ -35,6 +40,7 @@ void Game::gameStart() {
     bool levelChangeFlag = 0;
     float windowHeight = 1600;
     float windowWidth = 900;
+  
 
     float thickness = 25;
 
