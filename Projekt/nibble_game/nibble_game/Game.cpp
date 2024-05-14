@@ -510,6 +510,9 @@ void Game::gameEnd() {
 
     leaderboardData.push_back({ dateStream.str(), timeStream.str(), score });
 
+    // Dodanie "Hall of Fame" jako pierwszy rekord
+    leaderboardData.insert(leaderboardData.begin(), { "         Hall of Fame            ", "                ", INT_MAX });
+
     // Sortowanie danych
     rng::sort(leaderboardData, [](const auto& a, const auto& b) {
         return std::get<2>(a) > std::get<2>(b);
@@ -529,7 +532,7 @@ void Game::gameEnd() {
     // Rysowanie posortowanych wyników na nowym oknie SFML
     sf::Font font;
     if (!font.loadFromFile("minecraft.ttf")) {
-        std::cout << "FONT LOAD FALITURE";
+        std::cout << "FONT LOAD FAILURE";
     }
 
     sf::Text text;
@@ -537,27 +540,36 @@ void Game::gameEnd() {
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
 
-    // Ustawienie tekstu "Hall of Fame"
-    text.setString("Hall of Fame");
-    text.setPosition(80.f, 10.f);
-    window.draw(text);
-
     // Ustawienie pozycji wyników
-    for (int i = 0; i < 10 && i < leaderboardData.size(); ++i) {
-        text.setString(std::get<0>(leaderboardData[i]) + " " + std::get<1>(leaderboardData[i]) + " - " + std::to_string(std::get<2>(leaderboardData[i])));
-        text.setPosition(10.f, 50.f + 30.f * i);
-        window.draw(text);
-    }
+    int displayStartIndex = 0;
+    int displayEndIndex = std::min(static_cast<int>(leaderboardData.size()), 10);
 
-    window.display();
-
-    // Pêtla g³ówna okna SFML
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            else if (event.type == sf::Event::MouseWheelScrolled) {
+                if (event.mouseWheelScroll.delta > 0 && displayStartIndex > 0) {
+                    --displayStartIndex;
+                    --displayEndIndex;
+                }
+                else if (event.mouseWheelScroll.delta < 0 && displayEndIndex < leaderboardData.size()) {
+                    ++displayStartIndex;
+                    ++displayEndIndex;
+                }
+            }
         }
+
+        window.clear();
+
+        for (int i = displayStartIndex; i < displayEndIndex; ++i) {
+            text.setString(std::get<0>(leaderboardData[i]) + " " + std::get<1>(leaderboardData[i]) + " - " + std::to_string(std::get<2>(leaderboardData[i])));
+            text.setPosition(10.f, 10.f + 30.f * (i - displayStartIndex));
+            window.draw(text);
+        }
+
+        window.display();
     }
 }
