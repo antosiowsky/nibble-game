@@ -237,7 +237,7 @@ void Game::gameStart() {
                 window.draw(text);
                 point.draw(window);
 
-                for (auto o : obstacles)
+                for (auto &o : obstacles)
                     o.draw(window);
 
 
@@ -259,7 +259,7 @@ void Game::gameStart() {
                 window.draw(text);
                 point.draw(window);
 
-                for (auto o : obstacles)
+                for (auto &o : obstacles)
                     o.draw(window);
 
 
@@ -281,7 +281,7 @@ void Game::gameStart() {
                 window.draw(text);
                 point.draw(window);
 
-                for (auto o : obstacles)
+                for (auto &o : obstacles)
                     o.draw(window);
                 window.display();
                 dir = 'r';
@@ -302,7 +302,7 @@ void Game::gameStart() {
                 window.draw(text);
                 point.draw(window);
 
-                for (auto o : obstacles)
+                for (auto &o : obstacles)
                     o.draw(window);
 
 
@@ -335,7 +335,7 @@ void Game::gameStart() {
                 window.draw(text);
                 point.draw(window);
 
-                for (auto o : obstacles)
+                for (auto &o : obstacles)
                     o.draw(window);
 
 
@@ -464,7 +464,7 @@ void Game::gameStart() {
 		/////////////////
 
 
-        for(auto o : obstacles) //TEST
+        for(auto &o : obstacles) //TEST
         o.draw(window);
 
 

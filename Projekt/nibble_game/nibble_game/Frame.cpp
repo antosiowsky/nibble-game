@@ -3,7 +3,6 @@
 Frame::Frame(float x, float y, float thickness)
     : Object(x, y, thickness){
 }
-// //Frame::~Frame() {}
 
 void Frame::draw(sf::RenderWindow& window) const {
     sf::RectangleShape top(sf::Vector2f(x-2*thickness, thickness));

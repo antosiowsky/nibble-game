@@ -22,4 +22,4 @@ private:
     char direction;
 };
 
-#endif // OBSTACLE_H
+#endif 

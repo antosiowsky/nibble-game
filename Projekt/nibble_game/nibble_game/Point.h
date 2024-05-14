@@ -8,7 +8,7 @@ class Obstacle;
 
 class Point : public Object {
 private:
-  //  sf::RectangleShape shape;
+
     sf::Text shape;
     sf::Font font;
     char i = 49;
@@ -18,9 +18,7 @@ public:
     bool checkCollision(const Snake& snake, const std::vector<Obstacle>& obstacles);
     void draw(sf::RenderWindow& window) const override;
     void resetValue();
-
-//private:
     void generatePoint(float thickness, float frameWidth, float frameHeight, const Snake& snake, const std::vector<Obstacle>& obstacles);
 };
 
-#endif // POINT_H
+#endif 
