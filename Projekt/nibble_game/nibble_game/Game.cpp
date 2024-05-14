@@ -132,14 +132,20 @@ void Game::gameStart() {
 
     //Obstacles//
     
-        float centreX = zaokraglona(top.getCenterPosition().x);
-        float centreY = zaokraglona(top.getCenterPosition().y);
+    float centreX, centreY, quaterX, quaterY, oneEightX, oneEightY;
+    std::thread t1([&]() { centreX = zaokraglona(top.getCenterPosition().x); });
+    std::thread t2([&]() { centreY = zaokraglona(top.getCenterPosition().y); });
+    std::thread t3([&]() { quaterX = zaokraglona(top.getCenterPosition().x / 2); });
+    std::thread t4([&]() { quaterY = zaokraglona(top.getCenterPosition().y / 2); });
+    std::thread t5([&]() { oneEightX = zaokraglona(top.getCenterPosition().x / 4); });
+    std::thread t6([&]() { oneEightY = zaokraglona(top.getCenterPosition().y / 4); });
 
-        float quaterX = zaokraglona((top.getCenterPosition().x) / 2);
-        float quaterY = zaokraglona((top.getCenterPosition().y) / 2); 
-
-        float oneEightX = zaokraglona((top.getCenterPosition().x) / 4);
-        float oneEightY = zaokraglona((top.getCenterPosition().y) / 4);
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    t5.join();
+    t6.join();
 
     Obstacle poziom2(centreX, centreY, thickness, 2*centreY, 'h');
 

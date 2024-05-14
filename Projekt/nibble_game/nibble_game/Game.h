@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <regex>
 #include <ranges>
+#include <thread>
 //#include <SFML/Audio.hpp>
 #include "Frame.h"
 #include "Snake.h"
@@ -30,11 +31,7 @@ public:
 	std::vector<std::pair<std::string, int>> leaderBoard;
 
 	void gameStart();
-	void nextLevel();
-	void gameOver();
 	void gameEnd();
-	void showLeaderBoard();
-	void addScore(std::string name, int score);
 
 	float getWindowWidth() const { return windowWidth; }
 	float getWindowHeight() const { return windowHeight; }
