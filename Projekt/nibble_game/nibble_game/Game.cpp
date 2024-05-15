@@ -9,7 +9,7 @@ Game::Game(int game_speed, float windowWidth, float windowHeight) :
 
 //to do
 
-    // na module wystarczy tylko 2 klasy zrobic
+    // na mapie 3 pojawi³ sie niewidzialny punkt
     // 
     // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
     // góra dó³ w¹¿ zawraca na 1 kratce
@@ -184,6 +184,7 @@ void Game::gameStart() {
     Obstacle poziom6_13(centreX + quaterX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
     Obstacle poziom6_14(centreX + quaterX + oneEightX, getWindowHeight() - 2 * thickness, thickness, quaterY + oneEightY, 'u');
     
+
 
     std::vector<Obstacle> obstacles;
     
