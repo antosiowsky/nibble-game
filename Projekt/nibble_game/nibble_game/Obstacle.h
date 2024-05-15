@@ -13,7 +13,6 @@ public:
 
     void draw(sf::RenderWindow& window) const;
     bool checkCollision(sf::Vector2f head) const;
-
     float getLength() const { return length; }
     char getDirection() const { return direction; }
 

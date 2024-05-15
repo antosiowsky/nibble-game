@@ -9,7 +9,5 @@ public:
     
     sf::Vector2f getCenterPosition() const;
     void draw(sf::RenderWindow& window) const override;
-
 };
-
 #endif

@@ -14,9 +14,9 @@ public:
     void MoveDown();
     void IncreaseValue();
     void DecreaseValue();
-    int GetPressedItem() { return selectedItemIndex; }
-    int GetLives() { return lives; }
-    int GetGameSpeed() { return gameSpeed; }
+    int GetPressedItem();
+    int GetLives();
+    int GetGameSpeed();
 
 private:
     sf::RenderWindow& window;

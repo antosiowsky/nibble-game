@@ -7,14 +7,6 @@ namespace fs = std::filesystem;
 Game::Game(int game_speed, float windowWidth, float windowHeight) : 
     game_speed(game_speed) , windowWidth(windowWidth), windowHeight(windowHeight){};
 
-//to do
-
-    // na mapie 3 pojawi³ sie niewidzialny punkt
-    // 
-    // przy jeŸdzie np. w prawo i szybkim kliknieciu i trzmaniu 
-    // góra dó³ w¹¿ zawraca na 1 kratce
-
-
 template<typename T>
 concept FloatingPoint = std::is_floating_point_v<T>;
 
@@ -317,7 +309,7 @@ void Game::gameStart() {
                 dir = 'r';
                 sf::sleep(sf::seconds(1));
             }
-            else if (level == 6) {
+            else if (level >= 6) {
                 obstacles.clear();
                 obstacles.push_back(poziom6_1);
                 obstacles.push_back(poziom6_2);
@@ -349,12 +341,7 @@ void Game::gameStart() {
                 window.display();
                 dir = 'r';
                 sf::sleep(sf::seconds(1));
-            }/*
-            else if (level == 7) {
-                obstacles.clear();
-                obstacles.push_back(poziom2);
-                levelChangeFlag = 0;
-            }*/
+            }
         }
         if (directionQueue.size() <= 1)
         {
@@ -433,7 +420,7 @@ void Game::gameStart() {
         }
 
        
-        if ((snake.checkCollision() == true && roundTime > 0.5)|| snake.checkCollisionWithObstacles(obstacles)) {
+        if ((snake.checkCollision() == true && roundTime > 1)|| snake.checkCollisionWithObstacles(obstacles)) {
 
             snake.resetSnake();
             sf::sleep(sf::seconds(0.5));

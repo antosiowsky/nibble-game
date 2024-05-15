@@ -9,10 +9,8 @@ Snake::Snake(float x, float y, float thickness, float windowWidth, float windowH
     segments.push_front(segment);
 }
 
-
 void Snake::move(char direction) {
 
-   
     // Zapisujemy pozycjê poprzedniego segmentu
     sf::Vector2f prevPos = segments.front().getPosition();
     // Obliczamy now¹ pozycjê g³owy wê¿a
@@ -36,7 +34,6 @@ void Snake::move(char direction) {
         segments.front().setPosition(newPos);
         break;
     default:
-        //newPos = prevPos + sf::Vector2f(thickness, 0);
         segments.front().setPosition(newPos);
         break;
     }
@@ -97,7 +94,6 @@ void Snake::draw(sf::RenderWindow& window) const {
 const std::list<sf::RectangleShape>& Snake::getSegments() const {
     return segments;
 }
-
 
 void Snake::resetSnake() {
     // Usuwamy wszystkie segmenty wê¿a oprócz g³owy

@@ -23,7 +23,6 @@ Menu::Menu(sf::RenderWindow& window, int width, int height)
     livesText.setPosition(sf::Vector2f(width / 2 + 200, height / 4 + 100));
     updateLivesText();
 
-   
 }
 
 void Menu::draw() {
@@ -91,4 +90,16 @@ void Menu::updateLivesText() {
 
 void Menu::updateGameSpeedText() {
     gameSpeedText.setString(std::to_string(gameSpeed));
+}
+
+int Menu::GetPressedItem() {
+    return selectedItemIndex;
+}
+
+int Menu::GetLives() {
+    return lives;
+}
+
+int Menu::GetGameSpeed() {
+    return gameSpeed;
 }
