@@ -104,7 +104,6 @@ void Game::gameStart() {
     lives = menu.GetLives();
 
     sf::RenderWindow window(sf::VideoMode(getWindowWidth(), getWindowHeight()), "Snake Game");
-    //sf::sleep(sf::seconds(10));
     
     //text//
 
@@ -128,7 +127,7 @@ void Game::gameStart() {
 	//////////////
 
 
-    //Obstacles//
+    //Obstacles// threads
     
     float centreX, centreY, quaterX, quaterY, oneEightX, oneEightY;
     std::thread t1([&]() { centreX = zaokraglona(top.getCenterPosition().x); });
@@ -468,16 +467,16 @@ void Game::gameStart() {
 
 
 void Game::gameEnd() {
-    // Tworzenie nowego okna SFML
+    
     sf::RenderWindow window(sf::VideoMode(400, 300), "Hall of Fame");
 
-    // Sprawdzanie i tworzenie pliku leaderboards.txt
+    //// filesystem
     fs::path currentPath = fs::current_path();
     fs::path leaderboardFilePath = currentPath / "leaderboards.txt";
 
     std::vector<std::tuple<std::string, std::string, int>> leaderboardData;
 
-    // Odczytanie poprzednich wyników z pliku
+    // odczytanie poprzednich wyników z pliku // regex
     std::ifstream readFile(leaderboardFilePath);
     if (readFile.is_open()) {
         std::string line;
@@ -491,7 +490,7 @@ void Game::gameEnd() {
         readFile.close();
     }
 
-    // Dodanie nowego wyniku
+    // dodanie nowego wyniku
     auto now = std::chrono::system_clock::now();
     auto now_c = std::chrono::system_clock::to_time_t(now);
     std::tm parts;
@@ -504,15 +503,14 @@ void Game::gameEnd() {
 
     leaderboardData.push_back({ dateStream.str(), timeStream.str(), score });
 
-    // Dodanie "Hall of Fame" jako pierwszy rekord
+    
     leaderboardData.insert(leaderboardData.begin(), { "         Hall of Fame            ", "                ", INT_MAX });
 
-    // Sortowanie danych
+    // sortowanie danych // ranges
     rng::sort(leaderboardData, [](const auto& a, const auto& b) {
         return std::get<2>(a) > std::get<2>(b);
         });
 
-    // Zapisywanie danych do pliku
     std::ofstream file(leaderboardFilePath);
     if (!file.is_open()) {
         std::cerr << "Error: Unable to open leaderboard file." << std::endl;
@@ -523,7 +521,6 @@ void Game::gameEnd() {
     }
     file.close();
 
-    // Rysowanie posortowanych wyników na nowym oknie SFML
     sf::Font font;
     if (!font.loadFromFile("minecraft.ttf")) {
         std::cout << "FONT LOAD FAILURE";
@@ -534,7 +531,7 @@ void Game::gameEnd() {
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
 
-    // Ustawienie pozycji wyników
+    // pozycja wyników
     int displayStartIndex = 0;
     int displayEndIndex = std::min(static_cast<int>(leaderboardData.size()), 10);
 
