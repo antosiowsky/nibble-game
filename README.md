@@ -22,6 +22,8 @@ When the game starts, the player is presented with the main menu, which includes
 - **Game Speed** – adjusts the game speed (range 1-30)
 - **Lives** – selects the number of lives
 - **Exit Game** – exits the application
+![menu](https://github.com/user-attachments/assets/298f335a-be1c-4c92-b551-f6b0ab965869)
+
 
 ### Objective
 The player controls a snake, collecting food while avoiding obstacles. The main goal is to achieve the highest possible score.
@@ -37,6 +39,7 @@ The player controls a snake, collecting food while avoiding obstacles. The main 
 
 ### Hall of Fame
 The highest scores are saved in the `leaderboards.txt` file and displayed in descending order.
+![halloffame](https://github.com/user-attachments/assets/211efb05-2aaa-49bf-b3a0-dd75dcb8198a)
 
 ## Code Structure
 
@@ -73,6 +76,11 @@ The highest scores are saved in the `leaderboards.txt` file and displayed in des
 - Food spawns correctly and disappears when eaten.
 - The game ends when the snake collides.
 - The menu functions properly.
+
+![nibble2](https://github.com/user-attachments/assets/77d9a688-0c63-44f8-bf4d-749df778626b)
+![nibble4](https://github.com/user-attachments/assets/300e2a7f-0ce5-4e4b-a929-6ce044108f39)
+![nibble3](https://github.com/user-attachments/assets/ac3372bc-faba-4960-aa62-6a543c83d9d7)
+
 
 ## Conclusions
 This project provided valuable experience in object-oriented programming, including:
