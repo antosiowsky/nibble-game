@@ -1,9 +1,7 @@
 #include "frame.h"
 
 Frame::Frame(float x, float y, float thickness)
-    : Object(x, y, thickness){
-}
-// //Frame::~Frame() {}
+    : Object(x, y, thickness){}
 
 void Frame::draw(sf::RenderWindow& window) const {
     sf::RectangleShape top(sf::Vector2f(x-2*thickness, thickness));
@@ -27,3 +25,8 @@ void Frame::draw(sf::RenderWindow& window) const {
     window.draw(left);
     window.draw(right);
 }
+
+sf::Vector2f Frame::getCenterPosition() const {
+    return sf::Vector2f(thickness + (x - 2 * thickness) / 2, 2 * thickness + (y - 3 * thickness) / 2);
+}
+

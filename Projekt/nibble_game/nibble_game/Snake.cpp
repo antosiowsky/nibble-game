@@ -7,13 +7,10 @@ Snake::Snake(float x, float y, float thickness, float windowWidth, float windowH
     segment.setPosition(x, y);
     segments.push_front(segment);
     segments.push_front(segment);
-    segments.push_front(segment);
 }
-
 
 void Snake::move(char direction) {
 
-   
     // Zapisujemy pozycjê poprzedniego segmentu
     sf::Vector2f prevPos = segments.front().getPosition();
     // Obliczamy now¹ pozycjê g³owy wê¿a
@@ -37,7 +34,6 @@ void Snake::move(char direction) {
         segments.front().setPosition(newPos);
         break;
     default:
-        //newPos = prevPos + sf::Vector2f(thickness, 0);
         segments.front().setPosition(newPos);
         break;
     }
@@ -99,12 +95,24 @@ const std::list<sf::RectangleShape>& Snake::getSegments() const {
     return segments;
 }
 
-
 void Snake::resetSnake() {
     // Usuwamy wszystkie segmenty wê¿a oprócz g³owy
     segments.erase(std::next(segments.begin()), segments.end());
-
+    
     segments.front().setPosition(x, y);
 
+    
     // Ustawiamy kierunek ruchu na domyœlny ('r')
+}
+
+bool Snake::checkCollisionWithObstacles(const std::vector<Obstacle>& obstacles) const {
+    sf::Vector2f headPos = segments.front().getPosition();
+    
+    for (const auto& segment : segments) {
+        for (const auto& obstacle : obstacles) {
+            if (obstacle.checkCollision(headPos))
+                return true;
+        }
+    }
+    return false;
 }
